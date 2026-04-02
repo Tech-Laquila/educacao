@@ -35,14 +35,14 @@
 
   /* PROGRESS */
   .progress-wrap { background: var(--card); padding: 16px 32px 0; border-bottom: 1px solid var(--border); }
-  .steps { display: flex; max-width: 560px; margin: 0 auto; }
+  .steps { display: flex; max-width: 860px; margin: 0 auto; overflow-x: auto; padding-bottom: 2px; }
   .step { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; padding-bottom: 14px; }
   .step:not(:last-child)::after { content: ''; position: absolute; top: 14px; left: 50%; width: 100%; height: 2px; background: var(--border); z-index: 0; transition: background .4s; }
   .step.done:not(:last-child)::after { background: var(--gold); }
   .step-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--card2); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--muted); position: relative; z-index: 1; transition: all .3s; }
   .step.active .step-dot { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 0 4px rgba(245,158,11,.2); }
   .step.done .step-dot { background: var(--gold); border-color: var(--gold); color: #000; }
-  .step-label { font-size: 10px; color: var(--muted); margin-top: 5px; font-weight: 500; text-align: center; transition: color .3s; }
+  .step-label { font-size: 9px; color: var(--muted); margin-top: 5px; font-weight: 500; text-align: center; transition: color .3s; white-space: nowrap; }
   .step.active .step-label { color: var(--gold); }
 
   /* MAIN */
@@ -147,6 +147,57 @@
   .mes-tasks li::before { content: '→ '; color: var(--gold); font-weight: 700; }
   .mes-result { margin-top: 10px; font-size: 12px; color: var(--green); font-weight: 600; }
 
+  /* PONTOS NEGATIVOS */
+  .neg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  @media(max-width:640px){ .neg-grid { grid-template-columns: 1fr; } }
+  .neg-item { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; transition: border-color .2s; }
+  .neg-item:hover { border-color: var(--red); }
+  .neg-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(239,68,68,.15); border: 1.5px solid var(--red); color: var(--red); font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .neg-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .neg-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ECONOMIAS IMEDIATAS */
+  .eco-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .eco-item { display: flex; align-items: center; justify-content: space-between; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; gap: 16px; }
+  .eco-label { font-size: 13px; font-weight: 600; }
+  .eco-val { font-size: 15px; font-weight: 900; color: var(--gold); white-space: nowrap; background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.3); border-radius: 8px; padding: 6px 14px; }
+  .eco-total { background: linear-gradient(135deg,rgba(245,158,11,.12),rgba(217,119,6,.06)); border: 1.5px solid var(--gold); border-radius: var(--radius); padding: 24px; text-align: center; margin-bottom: 24px; }
+  .eco-total-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+  .eco-total-val { font-size: 36px; font-weight: 900; color: var(--gold); }
+  .eco-total-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  /* ENTREGÁVEIS */
+  .entrega-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .entrega-item { display: flex; gap: 18px; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; transition: border-color .2s; }
+  .entrega-item:hover { border-color: var(--gold); }
+  .entrega-arrow { color: var(--gold); font-size: 20px; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+  .entrega-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; color: var(--gold); }
+  .entrega-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* CASOS */
+  .casos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+  @media(max-width:640px){ .casos-grid { grid-template-columns: 1fr; } }
+  .caso-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; transition: border-color .2s; }
+  .caso-card:hover { border-color: var(--gold); }
+  .caso-nome { font-size: 15px; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+  .caso-texto { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .caso-destaque { font-weight: 700; color: var(--text); }
+
+  /* INVESTIMENTO */
+  .preco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+  @media(max-width:640px){ .preco-grid { grid-template-columns: 1fr; } }
+  .preco-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 28px; text-align: center; transition: border-color .2s; }
+  .preco-card.destaque { border-color: var(--gold); background: linear-gradient(135deg, rgba(245,158,11,.08), rgba(217,119,6,.03)); }
+  .preco-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; }
+  .preco-card.destaque .preco-badge { background: rgba(245,158,11,.2); color: var(--gold); }
+  .preco-card:not(.destaque) .preco-badge { background: var(--card2); color: var(--muted); }
+  .preco-parcelas { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .preco-val { font-size: 42px; font-weight: 900; color: var(--gold); line-height: 1; }
+  .preco-card:not(.destaque) .preco-val { color: var(--muted); }
+  .preco-vista { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .preco-card.destaque .preco-vista { color: var(--text); }
+  .preco-desc { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.6; font-style: italic; padding-top: 16px; border-top: 1px solid var(--border); }
+
   /* RESPONSIVE */
   @media (max-width: 640px) {
     header { padding: 12px 16px; }
@@ -160,12 +211,60 @@
 
   @media print {
     header, .progress-wrap, .nav, .screen-footer { display: none !important; }
-    #screen1, #screen2, #screen3 { display: none !important; }
-    #screen4 { display: block !important; }
+    #screen1, #screen2, #screen3, #screen4, #screen5, #screen6, #screen8 { display: none !important; }
+    #screen7, #screen9 { display: block !important; }
     body { background: #fff; color: #000; }
-    .mes-card, .impact-card, .contrast-card, .chart-wrap { background: #fff !important; border: 1px solid #ccc !important; break-inside: avoid; }
+    .mes-card, .impact-card, .contrast-card, .chart-wrap, .preco-card, .entrega-item { background: #fff !important; border: 1px solid #ccc !important; break-inside: avoid; }
     main { padding: 16px; }
   }
+
+  /* ── DASHBOARD ── */
+  #dash-overlay { display:none; position:fixed; inset:0; background:var(--bg); z-index:999; overflow-y:auto; }
+  #dash-overlay.on { display:block; }
+  .dash-header { background:var(--card); border-bottom:1px solid var(--border); padding:14px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:10; }
+  .dash-header-left { display:flex; align-items:center; gap:14px; }
+  .dash-header-left .logo-mark { width:34px; height:34px; font-size:17px; }
+  .dash-title { font-size:14px; font-weight:800; color:var(--gold); }
+  .dash-sub { font-size:11px; color:var(--muted); }
+  .dash-close { background:var(--card2); border:1px solid var(--border); color:var(--muted); border-radius:8px; padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .dash-close:hover { border-color:var(--gold); color:var(--gold); }
+  .dash-body { max-width:1000px; margin:0 auto; padding:32px 24px; }
+
+  /* PIN */
+  .pin-wrap { max-width:360px; margin:80px auto; text-align:center; }
+  .pin-wrap h2 { font-size:22px; font-weight:900; margin-bottom:8px; }
+  .pin-wrap p { color:var(--muted); font-size:13px; margin-bottom:28px; }
+  .pin-input { width:100%; background:var(--card2); border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; color:var(--text); font-size:20px; font-family:inherit; outline:none; text-align:center; letter-spacing:6px; }
+  .pin-input:focus { border-color:var(--gold); }
+  .pin-error { color:var(--red); font-size:13px; margin-top:10px; display:none; }
+
+  /* STATS */
+  .dash-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
+  @media(max-width:640px){ .dash-stats { grid-template-columns:repeat(2,1fr); } }
+  .stat-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; }
+  .stat-val { font-size:30px; font-weight:900; color:var(--gold); line-height:1; }
+  .stat-lbl { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-top:5px; }
+
+  /* TABLE */
+  .dash-table-wrap { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+  .dash-toolbar { display:flex; gap:10px; padding:14px 18px; border-bottom:1px solid var(--border); align-items:center; flex-wrap:wrap; }
+  .dash-search { background:var(--card2); border:1.5px solid var(--border); border-radius:8px; padding:9px 14px; color:var(--text); font-size:13px; font-family:inherit; outline:none; flex:1; min-width:180px; }
+  .dash-search:focus { border-color:var(--gold); }
+  .dash-refresh { background:var(--card2); border:1.5px solid var(--border); color:var(--muted); border-radius:8px; padding:9px 16px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; white-space:nowrap; }
+  .dash-refresh:hover { border-color:var(--gold); color:var(--gold); }
+  .dash-count { font-size:12px; color:var(--muted); margin-left:auto; white-space:nowrap; }
+  .dash-table-scroll { overflow-x:auto; }
+  table.dash-tbl { width:100%; border-collapse:collapse; }
+  .dash-tbl th { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; padding:11px 16px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; background:var(--card); }
+  .dash-tbl td { font-size:13px; padding:13px 16px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:middle; }
+  .dash-tbl tr:last-child td { border-bottom:none; }
+  .dash-tbl tr:hover td { background:var(--card2); }
+  .badge { display:inline-block; padding:3px 9px; border-radius:6px; font-size:11px; font-weight:700; }
+  .badge-mobile  { background:rgba(99,102,241,.15); color:#818cf8; }
+  .badge-desktop { background:rgba(16,185,129,.15);  color:var(--green); }
+  .badge-unknown { background:var(--card2);           color:var(--muted); }
+  .dash-empty { text-align:center; padding:48px 24px; color:var(--muted); font-size:14px; }
+  .dash-loading { text-align:center; padding:48px 24px; color:var(--muted); font-size:13px; }
 </style>
 </head>
 <body>
@@ -185,8 +284,13 @@
   <div class="steps">
     <div class="step active" id="step1"><div class="step-dot">1</div><div class="step-label">Perfil</div></div>
     <div class="step" id="step2"><div class="step-dot">2</div><div class="step-label">Diagnóstico</div></div>
-    <div class="step" id="step3"><div class="step-dot">3</div><div class="step-label">Contraste</div></div>
-    <div class="step" id="step4"><div class="step-dot">4</div><div class="step-label">Plano 6 Meses</div></div>
+    <div class="step" id="step3"><div class="step-dot">3</div><div class="step-label">Riscos</div></div>
+    <div class="step" id="step4"><div class="step-dot">4</div><div class="step-label">Contraste</div></div>
+    <div class="step" id="step5"><div class="step-dot">5</div><div class="step-label">Economia</div></div>
+    <div class="step" id="step6"><div class="step-dot">6</div><div class="step-label">Entrega</div></div>
+    <div class="step" id="step7"><div class="step-dot">7</div><div class="step-label">Plano</div></div>
+    <div class="step" id="step8"><div class="step-dot">8</div><div class="step-label">Casos</div></div>
+    <div class="step" id="step9"><div class="step-dot">9</div><div class="step-label">Proposta</div></div>
   </div>
 </div>
 
@@ -219,13 +323,15 @@
     <p>Marque tudo que se aplica à situação atual do escritório. Seja honesto — aqui começa a mudança.</p>
   </div>
   <div class="dx-list">
+    <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Investimentos que não retornam — marketing mal estruturado, contratações desalinhadas e campanhas sem acompanhamento</div></div>
+    <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Perda de negócios por falta de acompanhamento — leads não convertidos, clientes mal atendidos, processos jurídicos atrasados</div></div>
+    <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Concorrência avançando — enquanto o escritório improvisa, concorrentes estruturados crescem e faturam milhões</div></div>
+    <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Refém do dia a dia — escritório em modo reativo, apagando incêndio, sem espaço para inovar ou crescer</div></div>
     <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Não sei meu CAC, ROI ou taxa de conversão — tomo decisões no escuro</div></div>
     <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Cada área trabalha de um jeito diferente — sem processos padronizados</div></div>
-    <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Não tenho planejamento estratégico — reativo, apagando incêndio todo dia</div></div>
     <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Gasto em marketing sem resultado mensurável — dinheiro indo embora</div></div>
     <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Perco negócios por falta de follow-up — leads que somem sem fechar</div></div>
     <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Não consigo delegar — tudo passa pela minha mão, crescimento trava</div></div>
-    <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Concorrência cresce enquanto minha receita fica estagnada</div></div>
     <div class="dx-item" onclick="toggleDx(this)"><div class="dx-box"></div><div class="dx-text">Não tenho time comercial estruturado — fechamento depende só de mim</div></div>
   </div>
   <div class="dx-result" id="dx-result">
@@ -234,13 +340,64 @@
   </div>
   <div class="nav">
     <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
-    <button class="btn btn-primary" onclick="goTo3()">Ver o Contraste →</button>
+    <button class="btn btn-primary" onclick="goTo(3)">Ver os Riscos →</button>
   </div>
   <div class="screen-footer">Estruturação Full 360 — metodologia validada em +16.000 processos fechados</div>
 </div>
 
-<!-- ══ 3 — CONTRASTE ══ -->
+<!-- ══ 3 — PONTOS NEGATIVOS ══ -->
 <div class="screen" id="screen3">
+  <div class="section-title">
+    <h2>O que acontece com quem tenta <span>fazer sozinho</span></h2>
+    <p>9 armadilhas que travam o crescimento de quem não tem estrutura. Reconhece alguma?</p>
+  </div>
+  <div class="neg-grid">
+    <div class="neg-item">
+      <div class="neg-num">1</div>
+      <div><div class="neg-title">Contratações erradas</div><div class="neg-desc">Contratar vendedores despreparados que não performam e aumentam a rotatividade.</div></div>
+    </div>
+    <div class="neg-item">
+      <div class="neg-num">2</div>
+      <div><div class="neg-title">Perda de grandes oportunidades</div><div class="neg-desc">Deixar milhões na mesa por não ter estrutura para absorver a demanda e atender bem.</div></div>
+    </div>
+    <div class="neg-item">
+      <div class="neg-num">3</div>
+      <div><div class="neg-title">Treinamentos ineficientes</div><div class="neg-desc">Gasto de tempo e dinheiro em capacitações que não geram retorno prático.</div></div>
+    </div>
+    <div class="neg-item">
+      <div class="neg-num">4</div>
+      <div><div class="neg-title">Marketing sem estratégia</div><div class="neg-desc">Investir em tráfego sem processo comercial e operacional estruturado = resultado pequeno.</div></div>
+    </div>
+    <div class="neg-item">
+      <div class="neg-num">5</div>
+      <div><div class="neg-title">Falta de processos internos</div><div class="neg-desc">Fechar abaixo do preço e perder clientes por erros simples que se repetem.</div></div>
+    </div>
+    <div class="neg-item">
+      <div class="neg-num">6</div>
+      <div><div class="neg-title">Crescimento no improviso</div><div class="neg-desc">Tentar crescer testando coisas que não funcionam, sem direção clara.</div></div>
+    </div>
+    <div class="neg-item">
+      <div class="neg-num">7</div>
+      <div><div class="neg-title">Follow-up mal feito</div><div class="neg-desc">Perder vendas e dinheiro por falta de acompanhamento estruturado dos leads.</div></div>
+    </div>
+    <div class="neg-item">
+      <div class="neg-num">8</div>
+      <div><div class="neg-title">Investimento sem retorno</div><div class="neg-desc">Tempo e dinheiro aplicados em ferramentas, pessoas e ações que não geram resultado.</div></div>
+    </div>
+    <div class="neg-item">
+      <div class="neg-num">9</div>
+      <div><div class="neg-title">Viver apagando incêndio</div><div class="neg-desc">O dono preso no operacional, sempre resolvendo problemas em vez de liderar e crescer.</div></div>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+    <button class="btn btn-primary" onclick="goTo4Contraste()">Ver o Contraste →</button>
+  </div>
+  <div class="screen-footer">Estruturação Full 360 — metodologia validada em +16.000 processos fechados</div>
+</div>
+
+<!-- ══ 4 — CONTRASTE ══ -->
+<div class="screen" id="screen4">
   <div class="section-title">
     <h2>A diferença entre <span>agir</span> e não agir</h2>
     <p id="contraste-sub">Dois caminhos. Seis meses. Resultados completamente diferentes.</p>
@@ -296,14 +453,90 @@
   </div>
 
   <div class="nav">
-    <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
-    <button class="btn btn-primary" onclick="goTo4()">Ver o Plano de 6 Meses →</button>
+    <button class="btn btn-secondary" onclick="goTo(3)">← Voltar</button>
+    <button class="btn btn-primary" onclick="goTo(5)">Ver Economias Imediatas →</button>
   </div>
   <div class="screen-footer">Estruturação Full 360 — metodologia validada em +16.000 processos fechados</div>
 </div>
 
-<!-- ══ 4 — PLANO 6 MESES ══ -->
-<div class="screen" id="screen4">
+<!-- ══ 5 — ECONOMIAS IMEDIATAS ══ -->
+<div class="screen" id="screen5">
+  <div class="section-title">
+    <h2>Economias <span>imediatas</span> da Estruturação Full 360</h2>
+    <p>Ao final de 6 meses, o escritório terá uma operação completa estruturada, previsível e lucrativa — sem precisar contratar:</p>
+  </div>
+  <div class="eco-list">
+    <div class="eco-item"><span class="eco-label">Head de Vendas</span><span class="eco-val">R$ 20.000/mês</span></div>
+    <div class="eco-item"><span class="eco-label">Head de RH</span><span class="eco-val">R$ 15.000/mês</span></div>
+    <div class="eco-item"><span class="eco-label">Estrategista de Vendas</span><span class="eco-val">R$ 20.000/mês</span></div>
+    <div class="eco-item"><span class="eco-label">Analista de Dados</span><span class="eco-val">R$ 15.000/mês</span></div>
+    <div class="eco-item"><span class="eco-label">Estrategista de Negócios (Posicionamento, Expansão, Escala)</span><span class="eco-val">R$ 25.000/mês</span></div>
+    <div class="eco-item"><span class="eco-label">Especialista em Marketing Jurídico</span><span class="eco-val">R$ 20.000/mês</span></div>
+    <div class="eco-item"><span class="eco-label">Copywriter Especializado em Vendas Jurídicas</span><span class="eco-val">R$ 12.000/mês</span></div>
+    <div class="eco-item"><span class="eco-label">Gestor de Operações (Procedimentos Internos e Produtividade)</span><span class="eco-val">R$ 18.000/mês</span></div>
+    <div class="eco-item"><span class="eco-label">Treinador de Liderança</span><span class="eco-val">R$ 15.000/mês</span></div>
+  </div>
+  <div class="eco-total">
+    <div class="eco-total-label">Total estimado em estrutura própria</div>
+    <div class="eco-total-val">mais de R$ 4 milhões/ano</div>
+    <div class="eco-total-sub">Isso é o que você substitui com a Estruturação Full 360.</div>
+  </div>
+  <div class="nav">
+    <button class="btn btn-secondary" onclick="goTo(4)">← Voltar</button>
+    <button class="btn btn-primary" onclick="goTo(6)">O que você vai receber →</button>
+  </div>
+  <div class="screen-footer">Estruturação Full 360 — metodologia validada em +16.000 processos fechados</div>
+</div>
+
+<!-- ══ 6 — O QUE VAI RECEBER ══ -->
+<div class="screen" id="screen6">
+  <div class="section-title">
+    <h2>O que você vai <span>receber</span>?</h2>
+    <p>Tudo que seu escritório precisa para sair do improviso e operar com previsibilidade e escala.</p>
+  </div>
+  <div class="entrega-grid">
+    <div class="entrega-item">
+      <div class="entrega-arrow">→</div>
+      <div><div class="entrega-title">Estruturação completa em até 90 dias</div><div class="entrega-desc">Da estratégia ao operacional, seu escritório organizado para rodar em modelo validado.</div></div>
+    </div>
+    <div class="entrega-item">
+      <div class="entrega-arrow">→</div>
+      <div><div class="entrega-title">Implementação ponta a ponta</div><div class="entrega-desc">Planejamento estratégico, recrutamento, seleção, treinamento, rotinas, liderança, métricas comerciais e operacionais, procedimentos internos e marketing.</div></div>
+    </div>
+    <div class="entrega-item">
+      <div class="entrega-arrow">→</div>
+      <div><div class="entrega-title">Suporte contínuo e acompanhamento diário</div><div class="entrega-desc">Nosso time disponível para garantir que cada passo seja aplicado corretamente.</div></div>
+    </div>
+    <div class="entrega-item">
+      <div class="entrega-arrow">→</div>
+      <div><div class="entrega-title">ROI desde os primeiros meses</div><div class="entrega-desc">Economia imediata de tempo, dinheiro e energia, evitando erros e anos de tentativas.</div></div>
+    </div>
+    <div class="entrega-item">
+      <div class="entrega-arrow">→</div>
+      <div><div class="entrega-title">Equipe engajada e autogerenciável</div><div class="entrega-desc">Pessoas certas nos cargos certos, com processos e liderança que mantém alta performance.</div></div>
+    </div>
+    <div class="entrega-item">
+      <div class="entrega-arrow">→</div>
+      <div><div class="entrega-title">Dashboards e indicadores claros</div><div class="entrega-desc">Visão em tempo real de faturamento, produtividade, CAC, ROI e LTV.</div></div>
+    </div>
+    <div class="entrega-item">
+      <div class="entrega-arrow">→</div>
+      <div><div class="entrega-title">Marketing validado</div><div class="entrega-desc">Campanhas e funis prontos para atrair clientes todos os dias.</div></div>
+    </div>
+    <div class="entrega-item">
+      <div class="entrega-arrow">→</div>
+      <div><div class="entrega-title">Comercial pronto para escalar</div><div class="entrega-desc">Vendedores treinados com scripts, técnicas de fechamento e objeções mapeadas.</div></div>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="btn btn-secondary" onclick="goTo(5)">← Voltar</button>
+    <button class="btn btn-primary" onclick="goTo7Plano()">Ver o Plano de 6 Meses →</button>
+  </div>
+  <div class="screen-footer">Estruturação Full 360 — metodologia validada em +16.000 processos fechados</div>
+</div>
+
+<!-- ══ 7 — PLANO 6 MESES ══ -->
+<div class="screen" id="screen7">
   <div class="section-title">
     <h2 id="plano-titulo">Plano Estratégico — <span>6 Meses</span></h2>
     <p id="plano-sub">Execução estruturada, pilar a pilar, semana a semana.</p>
@@ -406,14 +639,170 @@
   </div>
 
   <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+    <button class="btn btn-secondary" onclick="goTo(6)">← Voltar</button>
+    <button class="btn btn-primary" onclick="goTo(8)">Ver Casos de Sucesso →</button>
+  </div>
+  <div class="screen-footer">Estruturação Full 360 — metodologia validada em +16.000 processos fechados</div>
+</div>
+
+<!-- ══ 8 — CASOS ══ -->
+<div class="screen" id="screen8">
+  <div class="section-title">
+    <h2>Resultados <span>reais</span> de quem estruturou</h2>
+    <p>Escritórios que aplicaram a metodologia e transformaram sua operação.</p>
+  </div>
+  <div class="casos-grid">
+    <div class="caso-card">
+      <div class="caso-nome">Dr. Luiz Soares</div>
+      <div class="caso-texto">Atuando no digital há 1 ano, o Dr. Luiz conta com uma <span class="caso-destaque">média de 60 contratos fechados mensalmente</span> e faturamento recorrente na casa dos <span class="caso-destaque">R$ 100 mil</span>.</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-nome">Dr. Guilherme Veiga</div>
+      <div class="caso-texto">Está à frente de uma operação sólida que <span class="caso-destaque">fecha mais de 150 contratos todos os meses</span> no digital.</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-nome">Dr. Jhonatan Marques</div>
+      <div class="caso-texto">Atuante no digital há mais de 1,5 anos, conta com <span class="caso-destaque">100 contratos fechados por mês</span> e atendimento humanizado em todo o território nacional.</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-nome">Dr. Renan Braga</div>
+      <div class="caso-texto">Equipe de 13 pessoas, <span class="caso-destaque">média de 150 contratos por mês</span> e faturamento de cerca de <span class="caso-destaque">R$ 150 mil mensais</span>.</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-nome">Dr. Herick Wolf</div>
+      <div class="caso-texto">Sócio do Wolf & Prana Advogados, equipe de 13 profissionais. <span class="caso-destaque">Fecha uma média de 200 contratos por mês</span>.</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-nome">Dr. Ryan Aquino</div>
+      <div class="caso-texto">Com apenas 24 anos e 2 anos de advocacia, <span class="caso-destaque">fecha mais de 100 contratos por mês</span> pelo digital.</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-nome">Dr. Kleber Rodrigues</div>
+      <div class="caso-texto">12 anos de advocacia, migrou para o digital em 2024. <span class="caso-destaque">Atualmente fecha de 80 a 100 contratos mensais</span>.</div>
+    </div>
+    <div class="caso-card">
+      <div class="caso-nome">Dr. Bruno Silvestrin</div>
+      <div class="caso-texto">20 anos de advocacia, iniciou no digital em 2021. <span class="caso-destaque">Média de 50 contratos por mês</span> e faturamento mensal em torno de <span class="caso-destaque">R$ 100 mil</span>.</div>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="btn btn-secondary" onclick="goTo(7)">← Voltar</button>
+    <button class="btn btn-primary" onclick="goTo(9)">Ver a Proposta →</button>
+  </div>
+  <div class="screen-footer">Estruturação Full 360 — metodologia validada em +16.000 processos fechados</div>
+</div>
+
+<!-- ══ 9 — PROPOSTA ══ -->
+<div class="screen" id="screen9">
+  <div class="section-title">
+    <h2>O <span>investimento</span> para transformar o escritório</h2>
+    <p>Esse é o investimento para ter um comercial estruturado, time treinado e suporte contínuo, garantindo previsibilidade e escala.</p>
+  </div>
+  <div class="preco-grid">
+    <div class="preco-card">
+      <div class="preco-badge">Valor Normal</div>
+      <div class="preco-parcelas">12x de</div>
+      <div class="preco-val">R$ 12.500</div>
+      <div class="preco-vista">ou R$ 150.000,00 à vista</div>
+      <div class="preco-desc">Implementação completa com todos os 7 pilares, suporte e acompanhamento.</div>
+    </div>
+    <div class="preco-card destaque">
+      <div class="preco-badge">Oferta Especial</div>
+      <div class="preco-parcelas">12x de</div>
+      <div class="preco-val">R$ 8.333</div>
+      <div class="preco-vista">ou R$ 100.000,00 à vista</div>
+      <div class="preco-desc">Mesma implementação completa com condição especial para decisão hoje.</div>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(217,119,6,.04));border:1.5px solid var(--gold);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:24px;">
+    <div style="font-size:13px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Resultado Projetado ao Final de 6 Meses</div>
+    <div style="font-size:42px;font-weight:900;color:var(--gold);line-height:1;">20 → 100+ contratos/mês</div>
+    <div style="font-size:20px;font-weight:700;margin-top:6px;">R$ 20.000 → <span style="color:var(--gold)">R$ 100.000/mês</span></div>
+    <div style="font-size:13px;color:var(--muted);margin-top:10px;">Baseado nos resultados reais de Dr. Guilherme Veiga, Herick Wolf, Bruno Silvestrin, Ryan Aquino, Renan Braga e outros.</div>
+  </div>
+  <div id="screen9-actions" style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
     <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+    <button class="btn btn-outline" id="btn-link" onclick="gerarLink()">🔗 Gerar Link Rastreável</button>
     <button class="btn btn-outline" onclick="restart()">↺ Novo Cliente</button>
     <button class="btn btn-secondary" onclick="goTo(1)">← Editar</button>
+  </div>
+  <div id="link-box" style="display:none;margin-top:16px;background:#12121a;border:1.5px solid #f59e0b;border-radius:12px;padding:18px 20px;">
+    <div style="font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;">Link rastreável gerado</div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <input id="link-url" readonly style="flex:1;font-size:12px;padding:10px 14px;background:#1a1a26;border:1px solid #2a2a3a;border-radius:8px;color:#f1f1f5;cursor:text;" />
+      <button class="btn btn-primary" style="white-space:nowrap;padding:10px 18px;font-size:13px;" onclick="copiarLink()">Copiar</button>
+    </div>
+    <div id="link-copied" style="display:none;font-size:12px;color:#10b981;margin-top:8px;font-weight:600;">✓ Copiado! Envie para o cliente.</div>
+    <div style="font-size:12px;color:#8888aa;margin-top:10px;line-height:1.6;">Quando o cliente abrir este link você receberá uma notificação com data, hora e dispositivo.</div>
   </div>
   <div class="screen-footer">Estruturação Full 360 — metodologia validada em +16.000 processos fechados</div>
 </div>
 
 </main>
+
+<!-- ══ DASHBOARD OVERLAY ══ -->
+<div id="dash-overlay">
+
+  <!-- PIN -->
+  <div id="dash-pin">
+    <div class="pin-wrap">
+      <div class="logo-mark" style="width:48px;height:48px;font-size:24px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;margin:0 auto 20px;">L</div>
+      <h2>Acesso Restrito</h2>
+      <p>Digite o PIN para acessar o dashboard de rastreamento</p>
+      <input id="pin-input" class="pin-input" type="password" maxlength="6" placeholder="••••" autocomplete="off" onkeydown="if(event.key==='Enter')checkPin()" oninput="checkPin()">
+      <div id="pin-error" class="pin-error">PIN incorreto. Tente novamente.</div>
+    </div>
+  </div>
+
+  <!-- MAIN DASHBOARD -->
+  <div id="dash-main" style="display:none;">
+    <div class="dash-header">
+      <div class="dash-header-left">
+        <div class="logo-mark" style="width:34px;height:34px;font-size:17px;border-radius:10px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;">L</div>
+        <div>
+          <div class="dash-title">Dashboard — Rastreamento</div>
+          <div class="dash-sub">Blueprint Estratégico · Laquila Educação</div>
+        </div>
+      </div>
+      <button class="dash-close" onclick="fecharDashboard()">✕ Fechar</button>
+    </div>
+
+    <div class="dash-body">
+      <div class="dash-stats">
+        <div class="stat-card"><div class="stat-val" id="s-total">—</div><div class="stat-lbl">Total de Aberturas</div></div>
+        <div class="stat-card"><div class="stat-val" id="s-clientes">—</div><div class="stat-lbl">Clientes Únicos</div></div>
+        <div class="stat-card"><div class="stat-val" id="s-hoje">—</div><div class="stat-lbl">Abertos Hoje</div></div>
+        <div class="stat-card"><div class="stat-val" id="s-links">—</div><div class="stat-lbl">Links Enviados</div></div>
+      </div>
+
+      <div class="dash-table-wrap">
+        <div class="dash-toolbar">
+          <input class="dash-search" id="dash-search" type="text" placeholder="Buscar por nome ou escritório…" oninput="filtrarTabela()">
+          <button class="dash-refresh" onclick="carregarDados()">↻ Atualizar</button>
+          <span class="dash-count" id="dash-count"></span>
+        </div>
+        <div class="dash-table-scroll">
+          <table class="dash-tbl">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Escritório</th>
+                <th>Problemas</th>
+                <th>Dispositivo</th>
+                <th>Aberto em</th>
+                <th>Link ID</th>
+              </tr>
+            </thead>
+            <tbody id="dash-tbody">
+              <tr><td colspan="6" class="dash-loading">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <script>
 // ── NAVIGATION ──────────────────────────────────
@@ -434,22 +823,22 @@ function goTo2() {
   goTo(2);
 }
 
-function goTo3() {
-  goTo(3);
+function goTo4Contraste() {
+  goTo(4);
   setTimeout(() => {
     drawContrastChart();
     animateImpact();
   }, 300);
 }
 
-function goTo4() {
+function goTo7Plano() {
   const nome = document.getElementById('nome').value.trim();
   const esc = document.getElementById('escritorio').value.trim();
   document.getElementById('plano-titulo').innerHTML =
     `Plano de <span>${nome || 'Cliente'}</span> — <span>6 Meses</span>`;
   document.getElementById('plano-sub').textContent =
     `${esc || 'Escritório'} · Estruturação Full 360 · Execução pilar a pilar`;
-  goTo(4);
+  goTo(7);
 }
 
 function restart() {
@@ -587,6 +976,208 @@ function animateImpact() {
   setTimeout(() => animCount(document.getElementById('cnt-time'), 1020000, 'R$ ', 1800), 300);
   setTimeout(() => animCount(document.getElementById('cnt-total'), 1500000, 'R$ ', 2000), 700);
 }
+
+// ── LINK RASTREÁVEL ──────────────────────────────
+// Configure aqui o webhook que receberá a notificação quando o link for aberto.
+// Exemplo Make.com: 'https://hook.eu2.make.com/SEU_WEBHOOK_AQUI'
+// Deixe vazio ('') para desativar o rastreamento.
+const WEBHOOK_URL = 'https://n8nwebhook1.autwork.com.br/webhook/educacao';
+
+function coletarEstado() {
+  const nome = document.getElementById('nome').value.trim();
+  const escritorio = document.getElementById('escritorio').value.trim();
+  const dxChecked = [];
+  document.querySelectorAll('.dx-item').forEach((el, i) => {
+    if (el.classList.contains('checked')) dxChecked.push(i);
+  });
+  const uid = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  return { nome, escritorio, dxChecked, uid };
+}
+
+function gerarLink() {
+  const estado = coletarEstado();
+  const payload = btoa(unescape(encodeURIComponent(JSON.stringify(estado))));
+  const url = window.location.href.split('#')[0] + '#v=' + payload;
+  document.getElementById('link-url').value = url;
+  document.getElementById('link-box').style.display = 'block';
+  document.getElementById('link-copied').style.display = 'none';
+  document.getElementById('link-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copiarLink() {
+  const input = document.getElementById('link-url');
+  input.select();
+  navigator.clipboard.writeText(input.value).catch(() => document.execCommand('copy'));
+  document.getElementById('link-copied').style.display = 'block';
+}
+
+function restaurarEstado(estado) {
+  if (estado.nome) document.getElementById('nome').value = estado.nome;
+  if (estado.escritorio) document.getElementById('escritorio').value = estado.escritorio;
+  if (Array.isArray(estado.dxChecked)) {
+    const items = document.querySelectorAll('.dx-item');
+    estado.dxChecked.forEach(i => {
+      if (items[i]) {
+        items[i].classList.add('checked');
+        items[i].querySelector('.dx-box').textContent = '✕';
+      }
+    });
+    updateDx();
+  }
+}
+
+function dispararRastreamento(estado) {
+  if (!WEBHOOK_URL) return;
+  const payload = {
+    evento: 'blueprint_aberto',
+    link_id: estado.uid || 'desconhecido',
+    nome_cliente: estado.nome || '(sem nome)',
+    escritorio: estado.escritorio || '(sem escritório)',
+    problemas_marcados: (estado.dxChecked || []).length,
+    aberto_em: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+    dispositivo: navigator.userAgent,
+    referrer: document.referrer || 'direto'
+  };
+  fetch(WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
+
+function initFromHash() {
+  const hash = window.location.hash;
+  if (!hash.startsWith('#v=')) return;
+  try {
+    const json = decodeURIComponent(escape(atob(hash.slice(3))));
+    const estado = JSON.parse(json);
+    restaurarEstado(estado);
+    const nome = estado.nome || 'Cliente';
+    const esc = estado.escritorio || 'Escritório';
+    document.getElementById('plano-titulo').innerHTML =
+      `Plano de <span>${nome}</span> — <span>6 Meses</span>`;
+    document.getElementById('plano-sub').textContent =
+      `${esc} · Estruturação Full 360 · Execução pilar a pilar`;
+    goTo(9);
+    // Modo cliente: esconde tudo que não é conteúdo
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.getElementById('screen9-actions').style.display = 'none';
+    document.getElementById('link-box').style.display = 'none';
+    document.querySelector('#screen9 .screen-footer') && (document.querySelector('#screen9 .screen-footer').style.display = 'none');
+    dispararRastreamento(estado);
+  } catch (e) {}
+}
+
+window.addEventListener('DOMContentLoaded', initFromHash);
+
+// ── DASHBOARD ────────────────────────────────────
+const SUPABASE_URL = 'https://bsxuagubgfemsluuovmd.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_SEgw0chPQebVhUdnNo3R1A_8c4rD5Dd';
+const ADMIN_PIN    = '1234'; // altere para o PIN desejado
+
+let _dashData = [];
+
+function initDashboard() {
+  const hash = window.location.hash;
+  if (hash !== '#admin') return;
+  document.getElementById('dash-overlay').classList.add('on');
+  document.querySelector('header').style.display = 'none';
+  document.querySelector('.progress-wrap').style.display = 'none';
+  document.querySelector('main').style.display = 'none';
+  setTimeout(() => document.getElementById('pin-input').focus(), 200);
+}
+
+function checkPin() {
+  const val = document.getElementById('pin-input').value;
+  if (val.length < ADMIN_PIN.length) return;
+  if (val === ADMIN_PIN) {
+    document.getElementById('dash-pin').style.display = 'none';
+    document.getElementById('dash-main').style.display = 'block';
+    carregarDados();
+  } else {
+    document.getElementById('pin-error').style.display = 'block';
+    document.getElementById('pin-input').value = '';
+  }
+}
+
+function fecharDashboard() {
+  window.location.hash = '';
+  location.reload();
+}
+
+async function carregarDados() {
+  document.getElementById('dash-tbody').innerHTML =
+    '<tr><td colspan="6" class="dash-loading">Carregando…</td></tr>';
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/blueprint_opens?select=*&order=created_at.desc&limit=500`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    );
+    _dashData = await res.json();
+    renderStats(_dashData);
+    renderTabela(_dashData);
+  } catch(e) {
+    document.getElementById('dash-tbody').innerHTML =
+      '<tr><td colspan="6" class="dash-empty">Erro ao carregar dados. Verifique a conexão.</td></tr>';
+  }
+}
+
+function renderStats(data) {
+  const hoje = new Date().toDateString();
+  document.getElementById('s-total').textContent    = data.length;
+  document.getElementById('s-clientes').textContent = new Set(data.map(r => r.nome_cliente)).size;
+  document.getElementById('s-hoje').textContent     = data.filter(r => new Date(r.created_at).toDateString() === hoje).length;
+  document.getElementById('s-links').textContent    = new Set(data.map(r => r.link_id)).size;
+}
+
+function parseDevice(ua = '') {
+  if (/iPhone|iPad|iPod/.test(ua)) return { label: 'iPhone/iPad', cls: 'badge-mobile' };
+  if (/Android/.test(ua))          return { label: 'Android',     cls: 'badge-mobile' };
+  if (/Windows/.test(ua))          return { label: 'Windows',     cls: 'badge-desktop' };
+  if (/Mac/.test(ua))              return { label: 'Mac',         cls: 'badge-desktop' };
+  return { label: 'Desconhecido', cls: 'badge-unknown' };
+}
+
+function formatDate(iso) {
+  return new Date(iso).toLocaleString('pt-BR', {
+    timeZone: 'America/Sao_Paulo',
+    day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
+}
+
+function renderTabela(data) {
+  const tbody = document.getElementById('dash-tbody');
+  document.getElementById('dash-count').textContent = `${data.length} registro${data.length !== 1 ? 's' : ''}`;
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="dash-empty">Nenhum registro encontrado.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(r => {
+    const dev = parseDevice(r.dispositivo);
+    const problemas = r.problemas_marcados ?? '—';
+    const cor = problemas >= 6 ? 'var(--red)' : problemas >= 3 ? 'var(--gold)' : 'var(--green)';
+    return `<tr>
+      <td><strong>${r.nome_cliente || '—'}</strong></td>
+      <td style="color:var(--muted)">${r.escritorio || '—'}</td>
+      <td><span style="font-weight:800;color:${cor}">${problemas}</span></td>
+      <td><span class="badge ${dev.cls}">${dev.label}</span></td>
+      <td style="color:var(--muted);white-space:nowrap">${formatDate(r.created_at)}</td>
+      <td style="font-family:monospace;font-size:11px;color:var(--muted)">${(r.link_id || '').slice(0,10)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filtrarTabela() {
+  const q = document.getElementById('dash-search').value.toLowerCase();
+  const filtrado = _dashData.filter(r =>
+    (r.nome_cliente || '').toLowerCase().includes(q) ||
+    (r.escritorio   || '').toLowerCase().includes(q)
+  );
+  renderTabela(filtrado);
+}
+
+window.addEventListener('DOMContentLoaded', initDashboard);
 </script>
 </body>
 </html>
