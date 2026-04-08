@@ -1862,8 +1862,6 @@
     }
 
     // SAVE
-    const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/grupolaquila.com/s/AKfycbxdnbmMhJgyJgbFh8vlBV-JF3yPYT9plVz0-qRRxZtfm9BjnI8Alhwo2NDbzxlkik9tnQ/exec';
-
     function saveToBackend() {
       if (!DIAG) return;
       const payload = {
@@ -1881,8 +1879,9 @@
         dores: DIAG.doresMarcadas.join(', '),
         pilares: DIAG.pilaresAtivados.join(', ')
       };
-      fetch(APPS_SCRIPT_URL, {
+      fetch('/api/salvar', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).catch(() => { }); // silencioso — não bloqueia o fluxo do usuário
     }
