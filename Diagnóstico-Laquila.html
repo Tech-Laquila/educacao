@@ -1069,13 +1069,16 @@
     }
 
     @media (max-width: 640px) {
+
       /* Header */
       header {
         padding: 10px 16px;
       }
+
       .hdr-badge {
         display: none;
       }
+
       .logo-img {
         height: 36px;
       }
@@ -1084,6 +1087,7 @@
       .progress-wrap {
         padding: 12px 16px 0;
       }
+
       .step-label {
         font-size: 9px;
       }
@@ -1097,6 +1101,7 @@
       .section-title h2 {
         font-size: 20px;
       }
+
       .section-title p {
         font-size: 13px;
       }
@@ -1113,6 +1118,7 @@
         transform: none;
         padding: 22px 18px;
       }
+
       .contrast-card {
         padding: 18px;
       }
@@ -1121,23 +1127,29 @@
       .contrast-card .big-val {
         font-size: 28px;
       }
+
       .contrast-card.bad .big-val {
         font-size: 26px;
       }
+
       .contrast-card.good .big-val {
-        font-size: 34px;
+        font-size: 32px;
       }
+
       .contrast-metric .val {
-        font-size: 20px;
+        font-size: 18px;
       }
+
       .dx-result-num {
-        font-size: 28px;
+        font-size: 26px;
       }
+
       .resultado-ancora-contratos {
-        font-size: 30px;
+        font-size: 26px;
       }
+
       .resultado-ancora-fat {
-        font-size: 24px;
+        font-size: 22px;
       }
 
       /* Mês card */
@@ -1145,11 +1157,13 @@
         grid-template-columns: 1fr;
         padding: 16px 18px;
       }
+
       .mes-num {
         display: flex;
         align-items: center;
         gap: 10px;
       }
+
       .mes-num .n {
         font-size: 24px;
       }
@@ -1160,11 +1174,13 @@
         align-items: flex-start;
         padding: 14px 18px;
       }
+
       .y-val {
         text-align: left;
         font-size: 18px;
         white-space: normal;
       }
+
       .y-breakdown-wrap {
         padding: 0 18px;
       }
@@ -1173,16 +1189,34 @@
       .pilar-link-wrap {
         padding: 18px 14px;
       }
+
       .pilar-link-subtitle {
         font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .impact-msg {
+        margin: 0 10px !important;
+        font-size: 11px;
+      }
+
+      .chart-title {
+        font-size: 12px;
+        margin-bottom: 8px;
+      }
+
+      .chart-legend {
+        gap: 12px;
+        margin-bottom: 15px;
       }
 
       /* Connector */
       .connector-text {
         white-space: normal;
         text-align: center;
-        font-size: 10px;
-        max-width: 200px;
+        font-size: 11px;
+        max-width: 300px;
+        padding: 10px 16px;
       }
 
       /* Botões */
@@ -1190,13 +1224,16 @@
         padding: 13px 18px;
         font-size: 14px;
       }
+
       .nav {
         flex-direction: column;
         gap: 10px;
       }
+
       .btn-secondary {
         order: 2;
       }
+
       .btn-primary {
         order: 1;
       }
@@ -1210,6 +1247,7 @@
       .ancora-frase {
         font-size: 17px;
       }
+
       .resultado-ancora {
         padding: 20px 16px;
       }
@@ -1723,7 +1761,7 @@
       const frags = d.doresMarcadas.slice(0, 3).map(id => DORES[id].short);
       const fragStr = frags.length <= 1 ? frags[0] : frags.length === 2 ? frags.join(' e ') : frags.slice(0, -1).join(', ') + ' e ' + frags[frags.length - 1];
       const pctLabel = Math.round(d.pctPerda * 100);
-      document.getElementById('v-porque-perda').innerHTML = `Pelas ${d.numDores} dor${d.numDores > 1 ? 'es' : ''} que você mapeou, seu faturamento já carrega um gap de <strong style="color:var(--red)">50%</strong> — <strong style="color:var(--red)">${fmt(d.P)}/mês</strong> a menos do seu faturamento. Esse dinheiro não desaparece — ele vai pra quem já resolveu isso.`;
+      document.getElementById('v-porque-perda').innerHTML = `Pelas ${d.numDores} dor${d.numDores > 1 ? 'es' : ''} que você mapeou, seu faturamento já carrega um gap de <strong style="color:var(--red)">pelo menos</strong> — <strong style="color:var(--red)">${fmt(d.P)}/mês</strong> a menos do seu faturamento. Esse dinheiro não desaparece — ele vai pra quem já resolveu isso.`;
 
       // Card GOOD
       document.getElementById('v-potencial').textContent = fmt(d.Z);
@@ -1781,8 +1819,11 @@
       const canvas = document.getElementById('contrastChart');
       if (!canvas || !DIAG) return;
       const ctx = canvas.getContext('2d');
-      const W = canvas.parentElement.clientWidth - 48 || 760;
+      const containerW = canvas.parentElement.clientWidth;
+      const W = containerW - 40 || 760;
       const H = 260;
+      const isMobile = W < 500;
+
       canvas.width = W * devicePixelRatio;
       canvas.height = H * devicePixelRatio;
       canvas.style.width = W + 'px';
@@ -1798,29 +1839,29 @@
       const semLaquila = [];
       for (let i = 0; i <= 6; i++) semLaquila.push(Math.max(1, Math.round(ctAtual * Math.pow(0.96, i))));
 
-      // Com Laquila: aggressive exponential — cubic ease-in
+      // Com Laquila: aggressive exponential
       const comLaquila = [];
       for (let i = 0; i <= 6; i++) {
         const t = i / 6;
-        // cubic ease-in: slow start → explosive end
         const progress = t * t * t;
         comLaquila.push(Math.round(ctAtual + (ctMeta - ctAtual) * progress));
       }
       comLaquila[0] = ctAtual;
       comLaquila[6] = ctMeta;
 
-      // Faturamento correspondente pra cada ponto
-      const fatSem = semLaquila.map(c => DIAG.ticket > 0 ? c * DIAG.ticket : fatAtual * (c / Math.max(ctAtual, 1)));
       const fatCom = [];
       for (let i = 0; i <= 6; i++) {
         const t = i / 6;
         const progress = t * t * t;
         fatCom.push(Math.round(fatAtual + (fatMeta - fatAtual) * progress));
       }
-      fatCom[0] = fatAtual;
-      fatCom[6] = fatMeta;
 
-      const PAD = { top: 20, right: 100, bottom: 36, left: 50 };
+      const PAD = {
+        top: 30,
+        right: isMobile ? 70 : 100,
+        bottom: 30,
+        left: isMobile ? 35 : 50
+      };
       const cW = W - PAD.left - PAD.right;
       const cH = H - PAD.top - PAD.bottom;
       const allVals = [...semLaquila, ...comLaquila];
@@ -1831,17 +1872,22 @@
       ctx.clearRect(0, 0, W, H);
 
       // Grid lines
+      ctx.textAlign = 'right';
+      ctx.font = (isMobile ? '8px' : '10px') + ' Inter,system-ui';
       for (let f = 0; f <= 1; f += 0.25) {
         const y = yOf(maxV * f);
         ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + cW, y);
         ctx.strokeStyle = '#1e1e2e'; ctx.lineWidth = 1; ctx.stroke();
-        ctx.fillStyle = '#555570'; ctx.font = '10px Inter,system-ui'; ctx.textAlign = 'right';
-        ctx.fillText(Math.round(maxV * f), PAD.left - 6, y + 4);
+        ctx.fillStyle = '#555570';
+        ctx.fillText(Math.round(maxV * f), PAD.left - 6, y + 3);
       }
 
       // X labels
-      ctx.fillStyle = '#8888aa'; ctx.font = '10px Inter,system-ui'; ctx.textAlign = 'center';
-      ['Hoje', 'Mês 1', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6'].forEach((l, i) => ctx.fillText(l, xOf(i), H - 8));
+      ctx.fillStyle = '#8888aa'; ctx.font = (isMobile ? '8px' : '10px') + ' Inter,system-ui'; ctx.textAlign = 'center';
+      ['Hoje', 'Mês 1', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6'].forEach((l, i) => {
+        if (isMobile && i % 2 !== 0 && i !== 6) return; // Menos labels no mobile
+        ctx.fillText(l, xOf(i), H - 8);
+      });
 
       // Meta dashed line
       ctx.setLineDash([4, 4]);
@@ -1851,7 +1897,7 @@
       ctx.fillStyle = 'rgba(245,158,11,.4)'; ctx.font = 'bold 10px Inter,system-ui'; ctx.textAlign = 'left';
       ctx.fillText('META', PAD.left + cW + 6, yOf(ctMeta) + 4);
 
-      function drawLine(data, fatData, color, dashed) {
+      function drawLine(data, color, dashed) {
         // Fill
         ctx.beginPath();
         ctx.moveTo(xOf(0), yOf(data[0]));
@@ -1873,26 +1919,24 @@
           const cpx = (xOf(i - 1) + xOf(i)) / 2;
           ctx.bezierCurveTo(cpx, yOf(data[i - 1]), cpx, yOf(data[i]), xOf(i), yOf(data[i]));
         }
-        ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.stroke();
+        ctx.strokeStyle = color; ctx.lineWidth = isMobile ? 2 : 2.5; ctx.stroke();
         ctx.setLineDash([]);
 
         // Dots + labels
         const isMain = color === '#f59e0b';
         data.forEach((v, i) => {
           ctx.beginPath();
-          ctx.arc(xOf(i), yOf(v), i === 0 || i === data.length - 1 ? 5 : 3.5, 0, Math.PI * 2);
+          ctx.arc(xOf(i), yOf(v), i === 0 || i === data.length - 1 ? 4 : 2.5, 0, Math.PI * 2);
           ctx.fillStyle = color; ctx.fill();
-          ctx.strokeStyle = '#0a0a0f'; ctx.lineWidth = 1.5; ctx.stroke();
+          ctx.strokeStyle = '#0a0a0f'; ctx.lineWidth = 1; ctx.stroke();
 
-          // Contract label above dot
           if (isMain && i > 0) {
-            ctx.fillStyle = color; ctx.font = 'bold 11px Inter,system-ui'; ctx.textAlign = 'center';
-            ctx.fillText(v, xOf(i), yOf(v) - 14);
+            if (isMobile && i % 2 !== 0 && i !== 6) return; // Menos números no mobile
+            ctx.fillStyle = color; ctx.font = 'bold ' + (isMobile ? '9px' : '11px') + ' Inter,system-ui'; ctx.textAlign = 'center';
+            ctx.fillText(v, xOf(i), yOf(v) - (isMobile ? 10 : 14));
           }
-
         });
 
-        // Faturamento projetado dentro da área preenchida (canto direito, meio vertical)
         if (isMain) {
           const lineY = yOf(data[data.length - 1]);
           const bottomY = PAD.top + cH;
@@ -1900,73 +1944,52 @@
           ctx.save();
           ctx.textAlign = 'left';
           ctx.textBaseline = 'middle';
-          if (DIAG.modesto) {
-            // Mostra meta do cliente + plus com o real projetado
-            ctx.fillStyle = 'rgba(245,158,11,.5)';
-            ctx.font = '10px Inter,system-ui';
-            ctx.fillText(fmt(DIAG.metaFat), xOf(6) + 8, midY - 8);
-            ctx.fillStyle = '#f59e0b';
-            ctx.font = 'bold 12px Inter,system-ui';
-            ctx.fillText('+ ' + fmt(DIAG.fatPotencial - DIAG.metaFat), xOf(6) + 8, midY + 8);
-          } else {
-            ctx.fillStyle = '#f59e0b';
-            ctx.font = 'bold 12px Inter,system-ui';
-            ctx.fillText(fmt(DIAG.metaFat), xOf(6) + 8, midY);
-          }
+          ctx.fillStyle = '#f59e0b';
+          ctx.font = 'bold ' + (isMobile ? '10px' : '12px') + ' Inter,system-ui';
+          ctx.fillText(fmt(DIAG.metaFat), xOf(6) + 8, midY);
           ctx.restore();
         }
       }
 
-      // Remove faturamento under red line, keep only under gold line
-      drawLine(semLaquila, null, '#ef4444', true);
-      drawLine(comLaquila, fatCom, '#f59e0b', false);
+      drawLine(semLaquila, '#ef4444', true);
+      drawLine(comLaquila, '#f59e0b', false);
 
-      // Ponto de partida animado — "Hoje você está aqui"
       const startX = xOf(0);
       const startY = yOf(ctAtual);
       if (window._chartPulseRAF) cancelAnimationFrame(window._chartPulseRAF);
 
-      // Salva o gráfico antes da animação para não sobrepor opacidades a cada frame
       const bgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const startTime = performance.now();
 
       function animatePulse(now) {
         const elapsed = (now - startTime) / 1000;
-        const pulse = (Math.sin(elapsed * 3) + 1) / 2; // oscilação suave 0-1
-
-        // Limpa a tela restaurando o fundo perfeito
+        const pulse = (Math.sin(elapsed * 3) + 1) / 2;
         ctx.putImageData(bgData, 0, 0);
-
         ctx.save();
-        // Anel externo pulsante (expande e some)
         ctx.beginPath();
-        ctx.arc(startX, startY, 10 + pulse * 14, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(239,68,68,${0.3 * (1 - pulse)})`; // Desvanece ao crescer
+        ctx.arc(startX, startY, 8 + pulse * 10, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(239,68,68,${0.3 * (1 - pulse)})`;
         ctx.lineWidth = 2;
         ctx.stroke();
-        // Anel médio pulsante
         ctx.beginPath();
-        ctx.arc(startX, startY, 6 + pulse * 6, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(239,68,68,${0.2 + (1 - pulse) * 0.3})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-        // Dot central fixo
-        ctx.beginPath();
-        ctx.arc(startX, startY, 5, 0, Math.PI * 2);
+        ctx.arc(startX, startY, 4, 0, Math.PI * 2);
         ctx.fillStyle = '#ef4444'; ctx.fill();
         ctx.strokeStyle = '#0a0a0f'; ctx.lineWidth = 1.5; ctx.stroke();
 
-        // Label com leve movimento (posicionado acima da linha para evitar sobreposição)
-        ctx.font = 'bold 11px Inter,system-ui';
-        ctx.fillStyle = '#ef4444';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'bottom';
-        ctx.fillText('Você está aqui!', startX - 4, startY - 24 - (pulse * 2));
+        ctx.font = 'bold ' + (isMobile ? '10px' : '11px') + ' Inter,system-ui';
+        ctx.fillStyle = '#ef4444'; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        ctx.fillText('Você está aqui!', startX - 4, startY - (isMobile ? 18 : 24) - (pulse * 2));
         ctx.restore();
         window._chartPulseRAF = requestAnimationFrame(animatePulse);
       }
       window._chartPulseRAF = requestAnimationFrame(animatePulse);
     }
+
+    window.addEventListener('resize', () => {
+      if (document.getElementById('screen3').style.display === 'block') {
+        drawContrastChart();
+      }
+    });
 
     // SAVE
     function saveToBackend() {
