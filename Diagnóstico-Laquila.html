@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIAGNÓSTICO — Laquila Educação</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0a0a0f;
+      --card: #12121a;
+      --card2: #1a1a26;
+      --gold: #f59e0b;
+      --amber: #d97706;
+      --gold-glow: rgba(245, 158, 11, .15);
+      --text: #f1f1f5;
+      --muted: #8888aa;
+      --border: #2a2a3a;
+      --green: #10b981;
+      --red: #ef4444;
+      --red-glow: rgba(239, 68, 68, .12);
+      --purple: #6366f1;
+      --radius: 14px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-top: 2px;
+    }
+
+    .hdr-badge {
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 12px;
+    }
+
+    .progress-wrap {
+      background: var(--card);
+      padding: 16px 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .steps {
+      display: flex;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      padding-bottom: 14px;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+      transition: background .4s;
+    }
+
+    .step.done:not(:last-child)::after {
+      background: var(--gold);
+    }
+
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--card2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+      transition: all .3s;
+    }
+
+    .step.active .step-dot {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #000;
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, .2);
+    }
+
+    .step.done .step-dot {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #000;
+    }
+
+    .step-label {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 5px;
+      font-weight: 500;
+      text-align: center;
+      transition: color .3s;
+    }
+
+    .step.active .step-label {
+      color: var(--gold);
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 44px 24px 32px;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeIn .35s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title {
+      margin-bottom: 32px;
+    }
+
+    .section-title h2 {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .section-title h2 span {
+      color: var(--gold);
+    }
+
+    .section-title p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    input {
+      background: var(--card2);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: var(--text);
+      font-size: 16px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    input:focus {
+      border-color: var(--gold);
+    }
+
+    input::placeholder {
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .btn {
+      padding: 15px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: #000;
+      flex: 1;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--card2);
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: rgba(245, 158, 11, .08);
+    }
+
+    .screen-footer {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 11px;
+      color: #3a3a52;
+      letter-spacing: .3px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* NUMS */
+    .nums-box {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin-bottom: 22px;
+    }
+
+    .nums-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nums-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .nums-grid label {
+      font-size: 10px;
+    }
+
+    .nums-grid input {
+      padding: 12px 14px;
+      font-size: 15px;
+    }
+
+    /* DX */
+    .dx-sublabel {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin: 6px 0 10px;
+    }
+
+    .dx-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .dx-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: all .2s;
+      user-select: none;
+    }
+
+    .dx-item:hover {
+      border-color: var(--gold);
+    }
+
+    .dx-item.checked {
+      border-color: var(--red);
+      background: var(--red-glow);
+    }
+
+    .dx-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background: var(--card2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all .2s;
+      margin-top: 1px;
+    }
+
+    .dx-item.checked .dx-box {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    .dx-text {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .dx-sub {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .dx-result {
+      background: var(--red-glow);
+      border: 1.5px solid var(--red);
+      border-radius: 12px;
+      padding: 18px 22px;
+      display: none;
+    }
+
+    .dx-result.on {
+      display: block;
+      animation: fadeIn .3s ease;
+    }
+
+    .dx-result-num {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    .dx-result-text {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    /* CONNECTOR ARROWS */
+    .connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      position: relative;
+    }
+
+    .connector-line {
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--red), var(--gold));
+      position: relative;
+    }
+
+    .connector-line::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: -5px;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid var(--gold);
+    }
+
+    .connector-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      white-space: nowrap;
+    }
+
+    .connector.red-to-gold .connector-line {
+      background: linear-gradient(to bottom, var(--red), var(--gold));
+    }
+
+    .connector.gold-to-green .connector-line {
+      background: linear-gradient(to bottom, var(--gold), var(--green));
+    }
+
+    .connector.gold-to-green .connector-line::after {
+      border-top-color: var(--green);
+    }
+
+    /* CONTRAST */
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 0;
+      align-items: stretch;
+    }
+
+    .contrast-card {
+      border-radius: var(--radius);
+      padding: 24px;
+      position: relative;
+      transition: all .3s ease;
+    }
+
+    .contrast-card.bad {
+      background: rgba(239, 68, 68, 0.03);
+      border: 1px dashed rgba(239, 68, 68, 0.25);
+      opacity: 0.85;
+      filter: saturate(70%);
+    }
+
+    .contrast-card.good {
+      background: linear-gradient(135deg, rgba(245, 158, 11, .16), rgba(217, 119, 6, .03));
+      border: 2px solid var(--gold);
+      box-shadow: 0 16px 48px rgba(245, 158, 11, .12);
+      transform: scale(1.03);
+      z-index: 2;
+      padding: 28px 24px;
+    }
+
+    .contrast-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 14px;
+    }
+
+    .contrast-card.bad .contrast-label {
+      color: rgba(239, 68, 68, 0.8);
+    }
+
+    .contrast-card.good .contrast-label {
+      color: var(--gold);
+    }
+
+    .contrast-card .big-val {
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .contrast-card.bad .big-val {
+      color: rgba(239, 68, 68, 0.85);
+      font-size: 32px;
+    }
+
+    .contrast-card.good .big-val {
+      color: var(--gold);
+      font-size: 46px;
+      text-shadow: 0 4px 16px rgba(245, 158, 11, .3);
+    }
+
+    .contrast-card .big-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .contrast-metric {
+      margin-bottom: 12px;
+    }
+
+    .contrast-metric .val {
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .contrast-card.bad .contrast-metric .val {
+      color: var(--red);
+    }
+
+    .contrast-card.good .contrast-metric .val {
+      color: var(--gold);
+    }
+
+    .contrast-metric .sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .contrast-card .porque {
+      font-size: 12px;
+      line-height: 1.55;
+      color: #c8c8d8;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
+
+    /* PILAR LINK */
+    .pilar-link-wrap {
+      background: linear-gradient(135deg, rgba(245, 158, 11, .07), rgba(245, 158, 11, .02));
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 28px 26px;
+      margin-bottom: 0;
+      box-shadow: 0 0 32px rgba(245, 158, 11, .1), inset 0 0 60px rgba(245, 158, 11, .03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pilar-link-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: .6;
+    }
+
+    .pilar-link-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(245, 158, 11, .5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pilar-link-subtitle {
+      font-size: 14px;
+      color: #e8c97a;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-weight: 600;
+      padding: 10px 14px;
+      background: rgba(245, 158, 11, .08);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .pilar-link-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+    }
+
+    .pilar-link-item:last-child {
+      border-bottom: none;
+    }
+
+    .pilar-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .pilar-link-dor {
+      font-size: 13px;
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .pilar-link-arrow {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 2px 0;
+    }
+
+    .pilar-link-pilar {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .pilar-link-tasks {
+      list-style: none;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pilar-link-tasks li {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .pilar-link-tasks li::before {
+      content: '→ ';
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .pilar-link-entrega {
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(16, 185, 129, .2);
+    }
+
+    /* Y CARD */
+    .y-card {
+      background: var(--card);
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 0 0 22px;
+      margin-bottom: 0;
+      overflow: hidden;
+    }
+
+    .y-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      background: rgba(255, 255, 255, .03);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 26px;
+    }
+
+    .y-head>div:first-child {
+      flex: 1;
+    }
+
+    .y-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 4px;
+    }
+
+    .y-val {
+      font-size: 22px;
+      font-weight: 900;
+      color: #c0c0d0;
+      line-height: 1;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .y-val .mo {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .y-sub {
+      font-size: 12px;
+      color: #9090a8;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .y-breakdown-wrap {
+      padding: 0 26px;
+    }
+
+    .y-breakdown {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 20px;
+    }
+
+    .y-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 5px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, .05);
+    }
+
+    .y-row span:last-child {
+      color: #c0c0d0;
+      font-weight: 700;
+      white-space: nowrap;
+      margin-left: 16px;
+    }
+
+    .impact-msg {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px;
+      font-style: italic;
+      line-height: 1.6;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* CHART */
+    .chart-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 0;
+    }
+
+    .chart-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 8px;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    canvas {
+      width: 100% !important;
+      display: block;
+    }
+
+    /* RESULTADO ANCORA (Substitui antiga ancora-wrap) */
+    .resultado-ancora {
+      background: linear-gradient(135deg, rgba(245, 158, 11, .08), rgba(217, 119, 6, .03));
+      border: 1.5px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .resultado-ancora-title {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 10px;
+    }
+
+    .resultado-ancora-contratos {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      text-shadow: 0 2px 16px rgba(245, 158, 11, .35);
+    }
+
+    .resultado-ancora-fat {
+      font-size: 36px;
+      font-weight: 900;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(16, 185, 129, .2);
+      color: var(--green);
+      text-shadow: 0 2px 16px rgba(16, 185, 129, .35);
+      line-height: 1;
+    }
+
+    .resultado-ancora-fat .g {
+      color: var(--green);
+    }
+
+    .resultado-ancora-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+
+    /* PLANO */
+    .plano-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .mes-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 26px;
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .mes-card.fase-estruturacao {
+      border-left: 4px solid #6366f1;
+    }
+
+    .mes-card.fase-tracao {
+      border-left: 4px solid var(--gold);
+    }
+
+    .mes-card.fase-escala {
+      border-left: 4px solid var(--green);
+    }
+
+    .mes-num {
+      text-align: center;
+    }
+
+    .mes-num .n {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--muted);
+    }
+
+    .mes-num .l {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .mes-fase {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-bottom: 5px;
+    }
+
+    .fase-estruturacao .mes-fase {
+      background: rgba(99, 102, 241, .15);
+      color: #818cf8;
+    }
+
+    .fase-tracao .mes-fase {
+      background: rgba(245, 158, 11, .15);
+      color: var(--gold);
+    }
+
+    .fase-escala .mes-fase {
+      background: rgba(16, 185, 129, .15);
+      color: var(--green);
+    }
+
+    .mes-pilar {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .mes-tasks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .mes-tasks li {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .mes-tasks li::before {
+      content: '→ ';
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .mes-result {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* MODAL */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .75);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.on {
+      display: flex;
+      animation: fadeIn .25s ease;
+    }
+
+    .modal {
+      background: var(--card);
+      border: 1.5px solid var(--gold);
+      border-radius: 16px;
+      padding: 32px 28px;
+      max-width: 440px;
+      width: 100%;
+    }
+
+    .modal h3 {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .modal h3 span {
+      color: var(--gold);
+    }
+
+    .modal p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .modal input {
+      width: 100%;
+    }
+
+    .modal .nav {
+      margin-top: 20px;
+    }
+
+    .modal-err {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 8px;
+      display: none;
+    }
+
+    .modal-err.on {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 12px 16px;
+      }
+
+      main {
+        padding: 24px 16px;
+      }
+
+      .contrast-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mes-card {
+        grid-template-columns: 1fr;
+      }
+
+      .mes-num {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nums-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .y-breakdown {
+        grid-template-columns: 1fr;
+      }
+
+      .ancora-frase {
+        font-size: 17px;
+      }
+
+      .progress-wrap {
+        padding: 14px 16px 0;
+      }
+    }
+
+    @media print {
+
+      header,
+      .progress-wrap,
+      .nav,
+      .screen-footer {
+        display: none !important;
+      }
+
+      #screen1,
+      #screen2 {
+        display: none !important;
+      }
+
+      #screen3 {
+        display: block !important;
+      }
+
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      .mes-card,
+      .contrast-card,
+      .chart-wrap,
+      .pilar-link-wrap,
+      .y-card {
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+      }
+
+      main {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="logo-laquila.jpeg" alt="Laquila Educação" class="logo-img">
+      <div class="logo-sub">DIAGNÓSTICO</div>
+    </div>
+    <div class="hdr-badge">LAQUILA EDUCAÇÃO</div>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="steps">
+      <div class="step active" id="step1">
+        <div class="step-dot">1</div>
+        <div class="step-label">Perfil</div>
+      </div>
+      <div class="step" id="step2">
+        <div class="step-dot">2</div>
+        <div class="step-label">Diagnóstico</div>
+      </div>
+      <div class="step" id="step3">
+        <div class="step-dot">3</div>
+        <div class="step-label">Contraste</div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ══ 1 — PERFIL ══ -->
+    <div class="screen active" id="screen1">
+      <div class="section-title">
+        <h2>Quem vai <span>transformar</span> o escritório?</h2>
+        <p>Duas informações. Vamos começar a construir o plano.</p>
+      </div>
+      <div class="form-group">
+        <label>Nome</label>
+        <input id="nome" type="text" placeholder="Ex: Dr. Eduardo Laquila" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>Nome do Escritório</label>
+        <input id="escritorio" type="text" placeholder="Ex: Laquila Advogados" autocomplete="off">
+      </div>
+      <div class="nav">
+        <button class="btn btn-primary" onclick="goTo2()">Próximo: Diagnóstico →</button>
+      </div>
+      <div class="screen-footer">Estruturação Full 360 — metodologia validada em +10.000 processos fechados</div>
+    </div>
+
+    <!-- ══ 2 — DIAGNÓSTICO ══ -->
+    <div class="screen" id="screen2">
+      <div class="section-title">
+        <h2>O que está travando o <span>crescimento</span>?</h2>
+        <p>Seus números atuais, onde quer chegar, e os problemas reais.</p>
+      </div>
+
+      <div class="nums-box">
+        <div class="nums-label">📊 Seus números</div>
+        <div class="nums-grid">
+          <div class="form-group" style="margin:0"><label>Contratos / mês (hoje)</label><input id="f-contratos"
+              type="number" min="0" placeholder="Ex: 12"></div>
+          <div class="form-group" style="margin:0"><label>Faturamento mensal (R$)</label><input id="f-faturamento"
+              type="text" inputmode="numeric" placeholder="Ex: 24.000"></div>
+        </div>
+      </div>
+
+      <div class="nums-box" style="border-color: var(--gold);">
+        <div class="nums-label">🎯 Onde você quer chegar em 6 meses</div>
+        <div class="nums-grid">
+          <div class="form-group" style="margin:0"><label>Meta de contratos / mês</label><input id="f-meta-contratos"
+              type="number" min="0" placeholder="Ex: 40"></div>
+          <div class="form-group" style="margin:0"><label>Meta de faturamento (R$)</label><input id="f-meta-faturamento"
+              type="text" inputmode="numeric" placeholder="Ex: 80.000"></div>
+        </div>
+      </div>
+
+      <div class="nums-box" style="border-color: var(--border);">
+        <div class="nums-label" style="color:var(--muted);">🎟️ Valor do seu contrato médio</div>
+        <div class="form-group" style="margin:0">
+          <label>Ticket médio (R$)</label>
+          <input id="f-ticket" type="text" inputmode="numeric" placeholder="Ex: 2.000">
+        </div>
+      </div>
+
+      <div class="dx-sublabel">Agora, marque as dores reais do escritório</div>
+      <div class="dx-list" id="dx-list">
+        <div class="dx-item" data-dor="metricas" onclick="toggleDx(this)">
+          <div class="dx-box"></div>
+          <div>
+            <div class="dx-text">Gasto com marketing mas não sei meu CAC, ROAS ou taxa de conversão</div>
+            <div class="dx-sub">Dinheiro gasto em campanhas, resultado invisível</div>
+          </div>
+        </div>
+        <div class="dx-item" data-dor="processos" onclick="toggleDx(this)">
+          <div class="dx-box"></div>
+          <div>
+            <div class="dx-text">Cada funcionário faz do seu jeito — quando sai, leva tudo junto</div>
+            <div class="dx-sub">Novo colaborador demora meses pra render</div>
+          </div>
+        </div>
+        <div class="dx-item" data-dor="prioridade" onclick="toggleDx(this)">
+          <div class="dx-box"></div>
+          <div>
+            <div class="dx-text">Segunda começa e não sei qual é a prioridade da semana</div>
+            <div class="dx-sub">Cada semana diferente, sem direção clara por onde começar</div>
+          </div>
+        </div>
+        <div class="dx-item" data-dor="trafego" onclick="toggleDx(this)">
+          <div class="dx-box"></div>
+          <div>
+            <div class="dx-text">Pago agência e tráfego, mas não sei o que virou cliente</div>
+            <div class="dx-sub">Não consigo parar de gastar e nem escalar</div>
+          </div>
+        </div>
+        <div class="dx-item" data-dor="followup" onclick="toggleDx(this)">
+          <div class="dx-box"></div>
+          <div>
+            <div class="dx-text">Pessoa tira dúvidas e some — ninguém acompanha depois</div>
+            <div class="dx-sub">Interesse vira silêncio, contrato vai pro concorrente</div>
+          </div>
+        </div>
+        <div class="dx-item" data-dor="delegacao" onclick="toggleDx(this)">
+          <div class="dx-box"></div>
+          <div>
+            <div class="dx-text">Não consigo delegar — se eu parar, o escritório para</div>
+            <div class="dx-sub">Sem férias, sem desligar, sem saída. Vivo apagando incêndios</div>
+          </div>
+        </div>
+        <div class="dx-item" data-dor="concorrencia" onclick="toggleDx(this)">
+          <div class="dx-box"></div>
+          <div>
+            <div class="dx-text">Vejo concorrente validando novas áreas e crescendo — e eu no mesmo lugar</div>
+            <div class="dx-sub">Estagnado enquanto o mercado passa</div>
+          </div>
+        </div>
+        <div class="dx-item" data-dor="vendas" onclick="toggleDx(this)">
+          <div class="dx-box"></div>
+          <div>
+            <div class="dx-text">Se eu não faço o atendimento, o contrato não fecha — ninguém mais sabe vender</div>
+            <div class="dx-sub">A venda trava quando eu saio da frente</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dx-result" id="dx-result">
+        <div class="dx-result-num" id="dx-num">0</div>
+        <div class="dx-result-text" id="dx-text"></div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-secondary" onclick="goTo(1)">← Voltar</button>
+        <button class="btn btn-primary" onclick="openWhatsModal()">Ver meu diagnóstico →</button>
+      </div>
+      <div class="screen-footer">Estruturação Full 360 — metodologia validada em +10.000 processos fechados</div>
+    </div>
+
+    <!-- ══ 3 — CONTRASTE ══ -->
+    <div class="screen" id="screen3">
+      <div class="section-title">
+        <h2>A diferença entre <span>agir</span> e não agir</h2>
+        <p id="contraste-sub">Dois caminhos. Os mesmos números. Resultados completamente diferentes.</p>
+      </div>
+
+      <!-- BLOCO 1: CARDS DE COMPARAÇÃO -->
+      <div class="contrast-grid">
+        <div class="contrast-card bad">
+          <div class="contrast-label">❌ Continuando como está</div>
+          <div class="big-val" id="v-perda">R$ 0</div>
+          <div class="big-lbl">você já perde todo mês</div>
+          <div class="contrast-metric">
+            <div class="val" id="v-contratos-atual">—</div>
+            <div class="sub">contratos/mês hoje</div>
+          </div>
+          <div class="contrast-metric">
+            <div class="val" id="v-fat-atual">R$ —</div>
+            <div class="sub">faturamento atual</div>
+          </div>
+          <div class="porque" id="v-porque-perda">—</div>
+        </div>
+        <div class="contrast-card good">
+          <div class="contrast-label">✦ Com Laquila em 6 meses</div>
+          <div class="big-val" id="v-potencial">R$ 0</div>
+          <div class="big-lbl">faturamento projetado</div>
+          <div class="contrast-metric">
+            <div class="val" id="v-contratos-meta">—</div>
+            <div class="sub">contratos/mês (sua meta)</div>
+          </div>
+          <div class="contrast-metric">
+            <div class="val" id="v-contratos-gap">+—</div>
+            <div class="sub">contratos extras todo mês</div>
+          </div>
+          <div class="porque" id="v-porque-ganho">—</div>
+        </div>
+      </div>
+
+      <!-- CONECTOR 1: cards → pilares -->
+      <div class="connector red-to-gold">
+        <div class="connector-line"></div>
+        <div class="connector-text">Como sair de um cenário pro outro?</div>
+      </div>
+
+      <!-- BLOCO 2: DORES → PILARES -->
+      <div class="pilar-link-wrap">
+        <div class="pilar-link-title">✦ Cada problema seu tem um pilar que resolve</div>
+        <div class="pilar-link-subtitle" id="pilar-link-subtitle">Seus problemas ativaram pilares específicos da
+          Estruturação Full 360. É isso que transforma o cenário vermelho no dourado.</div>
+        <div id="pilar-link-list"></div>
+      </div>
+
+      <!-- CONECTOR 2: pilares → custo -->
+      <div class="connector gold-to-green">
+        <div class="connector-line"></div>
+        <div class="connector-text">Quanto custa resolver tudo isso?</div>
+      </div>
+
+      <!-- BLOCO 3: Y CARD (quanto custa sozinho) — ANTES do gráfico -->
+      <div class="y-card">
+        <div class="y-head">
+          <div>
+            <div class="y-title">✦ Resolver sozinho? O que custaria</div>
+            <div class="y-sub">Montar esse time por conta própria — buscando, contratando e gerenciando cada um — para
+              talvez ter a mesma expertise que a Laquila já entrega pronta.</div>
+          </div>
+          <div class="y-val">R$ 160.000<span class="mo">/mês</span></div>
+        </div>
+        <div style="padding: 0 26px">
+          <div class="y-breakdown">
+            <div class="y-row"><span>Head de Vendas</span><span>R$ 20k</span></div>
+            <div class="y-row"><span>Head de RH</span><span>R$ 15k</span></div>
+            <div class="y-row"><span>Estrategista de Vendas</span><span>R$ 20k</span></div>
+            <div class="y-row"><span>Analista de Dados</span><span>R$ 15k</span></div>
+            <div class="y-row"><span>Estrategista de Negócios (Posicionamento, Expansão, Escala)</span><span>R$
+                25k</span></div>
+            <div class="y-row"><span>Especialista em Marketing Jurídico</span><span>R$ 20k</span></div>
+            <div class="y-row"><span>Copywriter Especializado em Vendas Jurídicas</span><span>R$ 12k</span></div>
+            <div class="y-row"><span>Gestor de Operações (Procedimentos Internos e Produtividade)</span><span>R$
+                18k</span></div>
+            <div class="y-row"><span>Treinador de Liderança</span><span>R$ 15k</span></div>
+          </div>
+          <div class="impact-msg"
+            style="margin: 0 26px; border-top: 1px solid rgba(255,255,255,.06); padding-top: 14px; margin-top: 12px;">
+            Em 6 meses: <strong style="color:#c0c0d0">R$ 960.000</strong> só em salários. Com a Laquila, esse time já
+            existe e já performou em <strong style="color:var(--gold)">+10.000 processos</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- CONECTOR 3: custo → gráfico -->
+      <div class="connector gold-to-green">
+        <div class="connector-line"></div>
+        <div class="connector-text" id="conn-pilares-grafico">Os pilares ativados geram esta curva</div>
+      </div>
+
+      <!-- BLOCO 4: GRÁFICO EXPONENCIAL -->
+      <div class="chart-wrap">
+        <div class="chart-title">Trajetória Projetada — 6 Meses</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--red)"></div> Sem estruturação
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--gold)"></div> Com Laquila
+          </div>
+        </div>
+        <canvas id="contrastChart" height="260"></canvas>
+      </div>
+
+      <!-- RESULTADO PROJETADO EM DESTAQUE (SUBSTITUI A ÂNCORA) -->
+      <div class="resultado-ancora">
+        <div class="resultado-ancora-title">RESULTADO PROJETADO — 6 MESES</div>
+        <div class="resultado-ancora-contratos" id="r-ancora-contratos">— → — contratos/mês</div>
+        <div class="resultado-ancora-fat" id="r-ancora-fat">R$ — → <span class="g">R$ —/mês</span></div>
+        <div class="resultado-ancora-sub">Baseado nos resultados reais de escritórios que passaram pela Estruturação
+          Full 360, cada gap identificado tem uma correção, cada ponto forte tem um multiplicador. </div>
+      </div>
+
+      <div class="nav" style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+        <button class="btn btn-outline" onclick="restart()">↺ Novo diagnóstico</button>
+        <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+      </div>
+      <div class="screen-footer">Estruturação Full 360 — metodologia validada em +10.000 processos fechados</div>
+    </div>
+
+  </main>
+
+  <!-- MODAL WHATSAPP -->
+  <div class="modal-backdrop" id="whats-modal">
+    <div class="modal">
+      <div style="text-align:center;margin-bottom:16px;"><img src="logo-laquila.jpeg" alt="Laquila Educação"
+          style="height:48px;width:auto;"></div>
+      <h3>Falta só <span>um passo</span></h3>
+      <p>Pra liberar o diagnóstico completo, informe o seu WhatsApp.</p>
+      <div class="form-group">
+        <label>WhatsApp (com DDD)</label>
+        <input id="f-whats" type="tel" placeholder="Ex: 11 99999-9999" autocomplete="off">
+        <div class="modal-err" id="whats-err">Digite um WhatsApp válido (10 ou 11 dígitos).</div>
+      </div>
+      <div class="nav">
+        <button class="btn btn-secondary" onclick="closeWhatsModal()">← Voltar</button>
+        <button class="btn btn-primary" onclick="confirmWhats()">Ver diagnóstico →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DORES = {
+      metricas: { pilares: [4], nome: 'Pilar 4 — Métricas Comerciais', frag: 'você gasta em marketing sem saber o retorno', short: 'marketing sem métrica', resultado: 'CAC, ROI e conversão mapeados — você sabe exatamente o que cada real gasto está gerando' },
+      processos: { pilares: [5], nome: 'Pilar 5 — Procedimentos Internos', frag: 'cada funcionário faz do seu jeito e leva tudo quando sai', short: 'processos soltos', resultado: 'SOPs e checklists implantados — zero retrabalho, zero dependência de pessoa' },
+      prioridade: { pilares: [1], nome: 'Pilar 1 — Planejamento Estratégico', frag: 'a semana começa sem prioridade definida', short: 'sem direção estratégica', resultado: 'Plano estratégico com OKRs e KPIs rodando — todo o time sabe o que precisa ser feito e porquê' },
+      trafego: { pilares: [6], nome: 'Pilar 6 — Marketing Jurídico', frag: 'a verba de tráfego sai sem virar cliente rastreável', short: 'tráfego sem rastreio', resultado: 'Campanhas rastreadas e funil configurado — cliente novo entrando todo dia de forma previsível' },
+      followup: { pilares: [7], nome: 'Pilar 7 — Comercial 360', frag: 'leads pedem proposta e somem sem follow-up', short: 'follow-up inexistente', resultado: 'CRM com cadência de follow-up ativa — nenhum lead some sem uma resposta sua' },
+      delegacao: { pilares: [2, 3], nome: 'Pilar 3 — Liderança & Gestão de Pessoas', frag: 'se você para, o escritório para', short: 'centralização total', resultado: 'Líderes intermediários formados — o escritório opera e cresce sem depender de você' },
+      concorrencia: { pilares: [1], nome: 'Pilar 1 — Planejamento Estratégico', frag: 'o concorrente cresce enquanto você estagna', short: 'estagnação competitiva', resultado: 'Posicionamento e diferencial definidos — você para de perder cliente para quem cobra menos' },
+      vendas: { pilares: [2, 7], nome: 'Pilar 7 — Comercial 360', frag: 'ninguém mais fecha contratos além de você', short: 'venda dependente do sócio', resultado: 'Time comercial treinado com script validado — contratos fechados todos os dias, sem você na linha de frente' }
+    };
+
+    const PILARES = {
+      1: { nome: 'Pilar 1 — Planejamento Estratégico', tasks: ['Diagnóstico completo do escritório e definição de metas reais', 'Plano estratégico de 6 meses com OKRs e KPIs por área', 'Dashboard de acompanhamento implantado e funcionando'], entrega: 'Clareza total sobre onde está e onde precisa chegar' },
+      2: { nome: 'Pilar 2 — Recrutamento & Dimensionamento', tasks: ['Estrutura de cargos-chave definida: closers, captadores, assistentes e líderes com perfil ideal', 'Roteiro de recrutamento validado: processo seletivo, integração e onboarding estruturado', 'Dimensionamento por meta: quantos vendedores para X contratos, quantos advogados para Y entregas'], entrega: 'Plano de contratação escalável alinhado ao faturamento projetado' },
+      3: { nome: 'Pilar 3 — Liderança & Gestão de Pessoas', tasks: ['Liderança intermediária estruturada: quem toca operação, quem toca comercial', 'Cultura organizacional definida: clima, reconhecimento e accountability implantados', 'Gestão de conflitos e retenção de talentos: mecanismos práticos de cultura'], entrega: 'Estrutura de liderança desenhada e mecanismos de cultura implementados' },
+      4: { nome: 'Pilar 4 — Métricas Comerciais', tasks: ['CAC, ROI, LTV e conversão mapeados e monitorados semanalmente', 'Relatório semanal de performance: decisão baseada em dados', 'Identificação e correção dos pontos de perda do funil'], entrega: 'Você sabe exatamente o que está ganhando e perdendo' },
+      5: { nome: 'Pilar 5 — Procedimentos Internos', tasks: ['Fluxos padronizados de onboarding, entrega e relacionamento com clientes', 'Checklists de qualidade em cada etapa da operação: zero erro, zero retrabalho', 'Estrutura de reuniões de alinhamento: dailies, semanais e mensais'], entrega: 'Manual de procedimentos internos pronto para uso e replicação' },
+      6: { nome: 'Pilar 6 — Marketing Jurídico', tasks: ['Estratégia completa de tráfego pago criada e validada para o mercado jurídico', 'Campanhas estruturadas: criativos, copy e público-alvo definidos', 'Funil de aquisição e nutrição configurado: do lead ao contrato'], entrega: 'Campanhas de marketing estruturadas com plano de otimização contínua' },
+      7: { nome: 'Pilar 7 — Comercial 360', tasks: ['Scripts de fechamento validados em +10.000 processos implantados', 'Time comercial treinado: closer, SDR e follow-up estruturado', 'CRM rodando com cadência de follow-up que não deixa lead escapar'], entrega: 'Contratos sendo fechados todos os dias, sem depender de você' },
+    };
+
+    let DIAG = null;
+    const fmt = n => 'R$ ' + Math.round(n).toLocaleString('pt-BR');
+
+    // Máscara monetária brasileira
+    function mascaraReais(el) {
+      el.addEventListener('input', function () {
+        const pos = this.selectionStart;
+        const len0 = this.value.length;
+        let digits = this.value.replace(/\D/g, '');
+        if (!digits) { this.value = ''; return; }
+        const num = parseInt(digits, 10);
+        this.value = num.toLocaleString('pt-BR');
+        // Mantém cursor proporcional
+        const diff = this.value.length - len0;
+        this.setSelectionRange(pos + diff, pos + diff);
+      });
+    }
+    function lerReais(id) {
+      const v = document.getElementById(id).value.replace(/\./g, '').replace(',', '.');
+      return parseFloat(v) || 0;
+    }
+
+    // Máscara de telefone (xx) xxxxx-xxxx
+    function mascaraTelefone(el) {
+      el.addEventListener('input', function () {
+        let v = this.value.replace(/\D/g, '');
+        if (v.length > 11) v = v.substring(0, 11);
+
+        if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+        else if (v.length > 0) v = v.replace(/^(\d{0,2})/, '($1');
+
+        this.value = v;
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      ['f-faturamento', 'f-meta-faturamento', 'f-ticket'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) mascaraReais(el);
+      });
+      const elWhats = document.getElementById('f-whats');
+      if (elWhats) mascaraTelefone(elWhats);
+    });
+
+    // NAV
+    function goTo(n) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen' + n).classList.add('active');
+      document.querySelectorAll('.step').forEach((s, i) => {
+        s.classList.remove('active', 'done');
+        if (i + 1 < n) s.classList.add('done');
+        if (i + 1 === n) s.classList.add('active');
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function goTo2() {
+      if (!document.getElementById('nome').value.trim()) { alert('Informe o nome do cliente.'); return; }
+      goTo(2);
+    }
+
+    function restart() {
+      if (!confirm('Iniciar novo cliente?')) return;
+      ['nome', 'escritorio', 'f-contratos', 'f-faturamento', 'f-meta-contratos', 'f-meta-faturamento', 'f-ticket', 'f-whats'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      document.querySelectorAll('.dx-item').forEach(i => { i.classList.remove('checked'); i.querySelector('.dx-box').textContent = ''; });
+      document.getElementById('dx-result').classList.remove('on');
+      DIAG = null; goTo(1);
+    }
+
+    // DX
+    function toggleDx(item) {
+      item.classList.toggle('checked');
+      item.querySelector('.dx-box').textContent = item.classList.contains('checked') ? '✕' : '';
+      updateDx();
+    }
+    function updateDx() {
+      const n = document.querySelectorAll('.dx-item.checked').length;
+      const el = document.getElementById('dx-result');
+      if (n === 0) { el.classList.remove('on'); return; }
+      el.classList.add('on');
+      document.getElementById('dx-num').textContent = n + (n === 1 ? ' problema' : ' problemas');
+      const msgs = ['', 'Você identificou um ponto crítico. Esse sozinho já custa receita todo mês.', 'Dois problemas que se retroalimentam. Resolver um sem o outro não adianta.', 'Mais da metade dos gargalos que travam escritórios de alto potencial.', 'Cenário clássico de quem tem potencial, mas trava por falta de estrutura.', 'Cinco pontos de sangramento. Cada mês sem resolver, a perda se acumula.', 'Seis problemas simultâneos. Muito dinheiro na mesa.', 'Quase todos os gargalos mapeados. A solução é sistemática.', 'Todos os problemas marcados. Reestruturação completa é o caminho.'];
+      document.getElementById('dx-text').textContent = msgs[Math.min(n, 8)];
+    }
+
+    // MODAL
+    function openWhatsModal() {
+      const c = parseFloat(document.getElementById('f-contratos').value) || 0;
+      const f = lerReais('f-faturamento');
+      const mc = parseFloat(document.getElementById('f-meta-contratos').value) || 0;
+      const mf = lerReais('f-meta-faturamento');
+      if (!c || !f) { alert('Preencha contratos/mês e faturamento atual.'); return; }
+      if (!mc || !mf) { alert('Preencha suas metas de contratos e faturamento.'); return; }
+      if (!document.querySelectorAll('.dx-item.checked').length) { alert('Marque pelo menos uma dor.'); return; }
+      document.getElementById('whats-modal').classList.add('on');
+      setTimeout(() => document.getElementById('f-whats').focus(), 100);
+    }
+    function closeWhatsModal() { document.getElementById('whats-modal').classList.remove('on'); document.getElementById('whats-err').classList.remove('on'); }
+    function confirmWhats() {
+      const raw = document.getElementById('f-whats').value.replace(/\D/g, '');
+      if (raw.length < 10 || raw.length > 11) { document.getElementById('whats-err').classList.add('on'); return; }
+      document.getElementById('whats-err').classList.remove('on');
+      computeDiagnostico(); renderDiagnostico(); saveToBackend();
+      closeWhatsModal(); goTo(3);
+      setTimeout(() => drawContrastChart(), 300);
+    }
+
+    // CÁLCULO
+    function computeDiagnostico() {
+      const contratos = parseFloat(document.getElementById('f-contratos').value) || 0;
+      const fat = lerReais('f-faturamento');
+      const metaContratos = parseFloat(document.getElementById('f-meta-contratos').value) || 0;
+      const metaFat = lerReais('f-meta-faturamento');
+      const ticket = lerReais('f-ticket') || (contratos > 0 ? fat / contratos : 0);
+      const A = fat;
+      const doresMarcadas = [];
+      document.querySelectorAll('.dx-item.checked').forEach(el => doresMarcadas.push(el.getAttribute('data-dor')));
+      const numDores = doresMarcadas.length;
+      const gap = Math.max(0, metaFat - fat);
+      const P = gap * 0.50;
+      const pctPerda = A > 0 ? P / A : 0;
+      const fatPotencial = metaContratos * ticket; // faturamento real com ticket × meta de contratos
+      const modesto = fatPotencial > metaFat * 1.1; // potencial real é 10%+ acima do que projetou
+      const Z = modesto ? fatPotencial : metaFat;
+      const pilaresAtivados = [...new Set(doresMarcadas.flatMap(d => DORES[d].pilares))].sort((a, b) => a - b);
+
+      DIAG = { nome: document.getElementById('nome').value.trim() || 'Cliente', escritorio: document.getElementById('escritorio').value.trim() || 'Escritório', whats: document.getElementById('f-whats').value.trim(), contratos, ticket, A, P, Z, metaContratos, metaFat, fatPotencial, modesto, contratosGap: Math.max(0, metaContratos - contratos), doresMarcadas, numDores, pilaresAtivados, pctPerda };
+    }
+
+    // RENDER TELA 3
+    function renderDiagnostico() {
+      const d = DIAG;
+
+      // Card BAD
+      document.getElementById('v-perda').textContent = fmt(d.P);
+      document.getElementById('v-contratos-atual').textContent = d.contratos;
+      document.getElementById('v-fat-atual').textContent = fmt(d.A);
+      const frags = d.doresMarcadas.slice(0, 3).map(id => DORES[id].short);
+      const fragStr = frags.length <= 1 ? frags[0] : frags.length === 2 ? frags.join(' e ') : frags.slice(0, -1).join(', ') + ' e ' + frags[frags.length - 1];
+      const pctLabel = Math.round(d.pctPerda * 100);
+      document.getElementById('v-porque-perda').innerHTML = `Pelas ${d.numDores} dor${d.numDores > 1 ? 'es' : ''} que você mapeou, seu faturamento já carrega um gap de <strong style="color:var(--red)">50%</strong> — <strong style="color:var(--red)">${fmt(d.P)}/mês</strong> a menos do seu faturamento. Esse dinheiro não desaparece — ele vai pra quem já resolveu isso.`;
+
+      // Card GOOD
+      document.getElementById('v-potencial').textContent = fmt(d.Z);
+      document.getElementById('v-contratos-meta').textContent = d.metaContratos;
+      document.getElementById('v-contratos-gap').textContent = '+' + d.contratosGap;
+      if (d.modesto) {
+        document.getElementById('v-porque-ganho').innerHTML = `Você tem potencial para faturar além do que projetou — com <strong style="color:#fff;">${d.metaContratos} contratos</strong> e com ticket médio de <strong style="color:#fff;">${fmt(d.ticket)}</strong>, o número real seria <strong style="color:var(--green); font-size:13px; text-shadow:0 0 8px rgba(16,185,129,0.4);">${fmt(d.fatPotencial)}/mês</strong>. É isso que vamos buscar.`;
+      } else {
+        document.getElementById('v-porque-ganho').innerHTML = `Sua meta de <strong style="color:var(--green); font-size:13px; text-shadow:0 0 8px rgba(16,185,129,0.4);">${fmt(d.metaFat)}/mês</strong> é perfeitamente alcançável com os <strong style="color:#fff;">${d.pilaresAtivados.length} pilares</strong> que as suas dores ativaram.`;
+      }
+
+      document.getElementById('contraste-sub').textContent = `${d.escritorio} · Baseado nos seus números e metas. Temos dois caminhos.`;
+
+      // Pilar link subtitle
+      document.getElementById('pilar-link-subtitle').textContent = `${d.numDores} problema${d.numDores > 1 ? 's' : ''} ativaram ${d.pilaresAtivados.length} pilar${d.pilaresAtivados.length > 1 ? 'es' : ''} da Estruturação Full 360. É isso que tira seu escritório do modo sobrevivência e coloca no padrão de excelência dos escritórios que mais crescem no país.`;
+
+      // PILAR LINK
+      const linkList = document.getElementById('pilar-link-list');
+      linkList.innerHTML = '';
+      const pilarIcons = { 1: '🎯', 2: '👥', 3: '🦅', 4: '📊', 5: '⚙️', 6: '📣', 7: '🤝' };
+      // Agrupa dores por pilar, mantendo ordem de primeiro aparecimento
+      const pilarMap = new Map();
+      d.doresMarcadas.forEach(dorId => {
+        const dor = DORES[dorId];
+        dor.pilares.forEach(pilarNum => {
+          if (!pilarMap.has(pilarNum)) pilarMap.set(pilarNum, { pilarNum, frags: [] });
+          pilarMap.get(pilarNum).frags.push(dor.frag);
+        });
+      });
+      // Exibe na ordem numérica dos pilares ativados
+      [...pilarMap.entries()].sort((a, b) => a[0] - b[0]).forEach(([pilarNum, { frags }]) => {
+        const pilarData = PILARES[pilarNum] || {};
+        const div = document.createElement('div');
+        div.className = 'pilar-link-item';
+        const tasksList = (pilarData.tasks || []).map(t => `<li>${t}</li>`).join('');
+        const dorsList = frags.map(f => `<div class="pilar-link-dor">"${f}"</div>`).join('');
+        div.innerHTML = `<div class="pilar-icon">${pilarIcons[pilarNum] || '✦'}</div><div style="flex:1">${dorsList}<div class="pilar-link-arrow">↓ resolvido pelo</div><div class="pilar-link-pilar">${pilarData.nome || ''}</div><ul class="pilar-link-tasks">${tasksList}</ul>${pilarData.entrega ? `<div class="pilar-link-entrega">✦ Entrega: ${pilarData.entrega}</div>` : ''}</div>`;
+        linkList.appendChild(div);
+      });
+
+      // Connector text pilares → gráfico
+      const pilaresRestantes = Math.max(0, 7 - d.pilaresAtivados.length);
+      const connText = pilaresRestantes === 0
+        ? `Os 7 pilares da Estruturação Full 360 foram ativados — é a reestruturação completa que leva o escritório a ${fmt(d.Z)}/mês`
+        : `Os ${d.pilaresAtivados.length} pilares identificados recuperam o que você perde — somados aos ${pilaresRestantes} pilares fundamentais, chegamos aos ${fmt(d.Z)}/mês`;
+      document.getElementById('conn-pilares-grafico').textContent = connText;
+
+      // Âncora (Resultado Projetado 6 Meses)
+      document.getElementById('r-ancora-contratos').textContent = `${d.contratos} → ${d.metaContratos}+ contratos/mês`;
+      document.getElementById('r-ancora-fat').innerHTML = `${fmt(d.A)} → <span class="g">${fmt(d.Z)}/mês</span>`;
+    }
+
+    // GRÁFICO EXPONENCIAL
+    function drawContrastChart() {
+      const canvas = document.getElementById('contrastChart');
+      if (!canvas || !DIAG) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.parentElement.clientWidth - 48 || 760;
+      const H = 260;
+      canvas.width = W * devicePixelRatio;
+      canvas.height = H * devicePixelRatio;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+
+      const ctAtual = DIAG.contratos;
+      const ctMeta = DIAG.metaContratos;
+      const fatAtual = DIAG.A;
+      const fatMeta = DIAG.metaFat;
+
+      // Sem Laquila: decay
+      const semLaquila = [];
+      for (let i = 0; i <= 6; i++) semLaquila.push(Math.max(1, Math.round(ctAtual * Math.pow(0.96, i))));
+
+      // Com Laquila: aggressive exponential — cubic ease-in
+      const comLaquila = [];
+      for (let i = 0; i <= 6; i++) {
+        const t = i / 6;
+        // cubic ease-in: slow start → explosive end
+        const progress = t * t * t;
+        comLaquila.push(Math.round(ctAtual + (ctMeta - ctAtual) * progress));
+      }
+      comLaquila[0] = ctAtual;
+      comLaquila[6] = ctMeta;
+
+      // Faturamento correspondente pra cada ponto
+      const fatSem = semLaquila.map(c => DIAG.ticket > 0 ? c * DIAG.ticket : fatAtual * (c / Math.max(ctAtual, 1)));
+      const fatCom = [];
+      for (let i = 0; i <= 6; i++) {
+        const t = i / 6;
+        const progress = t * t * t;
+        fatCom.push(Math.round(fatAtual + (fatMeta - fatAtual) * progress));
+      }
+      fatCom[0] = fatAtual;
+      fatCom[6] = fatMeta;
+
+      const PAD = { top: 20, right: 100, bottom: 36, left: 50 };
+      const cW = W - PAD.left - PAD.right;
+      const cH = H - PAD.top - PAD.bottom;
+      const allVals = [...semLaquila, ...comLaquila];
+      const maxV = Math.max(...allVals) * 1.15 || 10;
+      const xOf = i => PAD.left + i * (cW / 6);
+      const yOf = v => PAD.top + cH - (v / maxV) * cH;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Grid lines
+      for (let f = 0; f <= 1; f += 0.25) {
+        const y = yOf(maxV * f);
+        ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + cW, y);
+        ctx.strokeStyle = '#1e1e2e'; ctx.lineWidth = 1; ctx.stroke();
+        ctx.fillStyle = '#555570'; ctx.font = '10px Inter,system-ui'; ctx.textAlign = 'right';
+        ctx.fillText(Math.round(maxV * f), PAD.left - 6, y + 4);
+      }
+
+      // X labels
+      ctx.fillStyle = '#8888aa'; ctx.font = '10px Inter,system-ui'; ctx.textAlign = 'center';
+      ['Hoje', 'Mês 1', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6'].forEach((l, i) => ctx.fillText(l, xOf(i), H - 8));
+
+      // Meta dashed line
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(PAD.left, yOf(ctMeta)); ctx.lineTo(PAD.left + cW, yOf(ctMeta));
+      ctx.strokeStyle = 'rgba(245,158,11,.25)'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(245,158,11,.4)'; ctx.font = 'bold 10px Inter,system-ui'; ctx.textAlign = 'left';
+      ctx.fillText('META', PAD.left + cW + 6, yOf(ctMeta) + 4);
+
+      function drawLine(data, fatData, color, dashed) {
+        // Fill
+        ctx.beginPath();
+        ctx.moveTo(xOf(0), yOf(data[0]));
+        for (let i = 1; i < data.length; i++) {
+          const cpx = (xOf(i - 1) + xOf(i)) / 2;
+          ctx.bezierCurveTo(cpx, yOf(data[i - 1]), cpx, yOf(data[i]), xOf(i), yOf(data[i]));
+        }
+        ctx.lineTo(xOf(data.length - 1), PAD.top + cH);
+        ctx.lineTo(xOf(0), PAD.top + cH);
+        ctx.closePath();
+        ctx.fillStyle = color === '#ef4444' ? 'rgba(239,68,68,.06)' : 'rgba(245,158,11,.08)';
+        ctx.fill();
+
+        // Line
+        if (dashed) ctx.setLineDash([6, 4]); else ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.moveTo(xOf(0), yOf(data[0]));
+        for (let i = 1; i < data.length; i++) {
+          const cpx = (xOf(i - 1) + xOf(i)) / 2;
+          ctx.bezierCurveTo(cpx, yOf(data[i - 1]), cpx, yOf(data[i]), xOf(i), yOf(data[i]));
+        }
+        ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Dots + labels
+        const isMain = color === '#f59e0b';
+        data.forEach((v, i) => {
+          ctx.beginPath();
+          ctx.arc(xOf(i), yOf(v), i === 0 || i === data.length - 1 ? 5 : 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = color; ctx.fill();
+          ctx.strokeStyle = '#0a0a0f'; ctx.lineWidth = 1.5; ctx.stroke();
+
+          // Contract label above dot
+          if (isMain && i > 0) {
+            ctx.fillStyle = color; ctx.font = 'bold 11px Inter,system-ui'; ctx.textAlign = 'center';
+            ctx.fillText(v, xOf(i), yOf(v) - 14);
+          }
+
+        });
+
+        // Faturamento projetado dentro da área preenchida (canto direito, meio vertical)
+        if (isMain) {
+          const lineY = yOf(data[data.length - 1]);
+          const bottomY = PAD.top + cH;
+          const midY = (lineY + bottomY) / 2;
+          ctx.save();
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          if (DIAG.modesto) {
+            // Mostra meta do cliente + plus com o real projetado
+            ctx.fillStyle = 'rgba(245,158,11,.5)';
+            ctx.font = '10px Inter,system-ui';
+            ctx.fillText(fmt(DIAG.metaFat), xOf(6) + 8, midY - 8);
+            ctx.fillStyle = '#f59e0b';
+            ctx.font = 'bold 12px Inter,system-ui';
+            ctx.fillText('+ ' + fmt(DIAG.fatPotencial - DIAG.metaFat), xOf(6) + 8, midY + 8);
+          } else {
+            ctx.fillStyle = '#f59e0b';
+            ctx.font = 'bold 12px Inter,system-ui';
+            ctx.fillText(fmt(DIAG.metaFat), xOf(6) + 8, midY);
+          }
+          ctx.restore();
+        }
+      }
+
+      // Remove faturamento under red line, keep only under gold line
+      drawLine(semLaquila, null, '#ef4444', true);
+      drawLine(comLaquila, fatCom, '#f59e0b', false);
+
+      // Ponto de partida animado — "Hoje você está aqui"
+      const startX = xOf(0);
+      const startY = yOf(ctAtual);
+      if (window._chartPulseRAF) cancelAnimationFrame(window._chartPulseRAF);
+
+      // Salva o gráfico antes da animação para não sobrepor opacidades a cada frame
+      const bgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const startTime = performance.now();
+
+      function animatePulse(now) {
+        const elapsed = (now - startTime) / 1000;
+        const pulse = (Math.sin(elapsed * 3) + 1) / 2; // oscilação suave 0-1
+
+        // Limpa a tela restaurando o fundo perfeito
+        ctx.putImageData(bgData, 0, 0);
+
+        ctx.save();
+        // Anel externo pulsante (expande e some)
+        ctx.beginPath();
+        ctx.arc(startX, startY, 10 + pulse * 14, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(239,68,68,${0.3 * (1 - pulse)})`; // Desvanece ao crescer
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        // Anel médio pulsante
+        ctx.beginPath();
+        ctx.arc(startX, startY, 6 + pulse * 6, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(239,68,68,${0.2 + (1 - pulse) * 0.3})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        // Dot central fixo
+        ctx.beginPath();
+        ctx.arc(startX, startY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#ef4444'; ctx.fill();
+        ctx.strokeStyle = '#0a0a0f'; ctx.lineWidth = 1.5; ctx.stroke();
+
+        // Label com leve movimento (posicionado acima da linha para evitar sobreposição)
+        ctx.font = 'bold 11px Inter,system-ui';
+        ctx.fillStyle = '#ef4444';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('Você está aqui!', startX - 4, startY - 24 - (pulse * 2));
+        ctx.restore();
+        window._chartPulseRAF = requestAnimationFrame(animatePulse);
+      }
+      window._chartPulseRAF = requestAnimationFrame(animatePulse);
+    }
+
+    // SAVE
+    function saveToBackend() {
+      if (!DIAG) return;
+      console.log('[LAQUILA DIAG]', { timestamp: new Date().toISOString(), cliente: DIAG.nome, escritorio: DIAG.escritorio, whatsapp: DIAG.whats, inputs: { contratos: DIAG.contratos, faturamento: DIAG.A, metaContratos: DIAG.metaContratos, metaFat: DIAG.metaFat, ticket: DIAG.ticket, verba: DIAG.verba }, calculado: { P: DIAG.P, Z: DIAG.Z, pctPerda: DIAG.pctPerda, pilaresAtivados: DIAG.pilaresAtivados }, dores: DIAG.doresMarcadas });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const bd = document.getElementById('whats-modal');
+      if (bd) bd.addEventListener('click', e => { if (e.target === bd) closeWhatsModal(); });
+    });
+  </script>
+</body>
+
+</html>
