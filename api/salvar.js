@@ -9,13 +9,23 @@ export default async function handler(req, res) {
   }
 
   try {
+    const body = req.body;
+
+    // Envia como form-urlencoded — Apps Script recebe via e.parameter
+    const params = new URLSearchParams();
+    Object.entries(body).forEach(([k, v]) => params.append(k, v));
+
     const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(req.body),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString(),
+      redirect: 'follow',
     });
-    const data = await response.json();
-    return res.status(200).json(data);
+
+    const text = await response.text();
+    return res.status(200).send(text);
   } catch (err) {
+    console.error('[salvar] erro:', err.message);
     return res.status(500).json({ error: 'Falha ao salvar', message: err.message });
   }
 }

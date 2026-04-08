@@ -1069,42 +1069,149 @@
     }
 
     @media (max-width: 640px) {
+      /* Header */
       header {
-        padding: 12px 16px;
+        padding: 10px 16px;
+      }
+      .hdr-badge {
+        display: none;
+      }
+      .logo-img {
+        height: 36px;
       }
 
+      /* Progress */
+      .progress-wrap {
+        padding: 12px 16px 0;
+      }
+      .step-label {
+        font-size: 9px;
+      }
+
+      /* Main */
       main {
-        padding: 24px 16px;
+        padding: 20px 14px 28px;
       }
 
-      .contrast-grid {
+      /* Títulos */
+      .section-title h2 {
+        font-size: 20px;
+      }
+      .section-title p {
+        font-size: 13px;
+      }
+
+      /* Grids que viram coluna única */
+      .contrast-grid,
+      .nums-grid,
+      .y-breakdown {
         grid-template-columns: 1fr;
       }
 
+      /* Cartão verde: remove o scale que causa overflow */
+      .contrast-card.good {
+        transform: none;
+        padding: 22px 18px;
+      }
+      .contrast-card {
+        padding: 18px;
+      }
+
+      /* Valores grandes reduzidos */
+      .contrast-card .big-val {
+        font-size: 28px;
+      }
+      .contrast-card.bad .big-val {
+        font-size: 26px;
+      }
+      .contrast-card.good .big-val {
+        font-size: 34px;
+      }
+      .contrast-metric .val {
+        font-size: 20px;
+      }
+      .dx-result-num {
+        font-size: 28px;
+      }
+      .resultado-ancora-contratos {
+        font-size: 30px;
+      }
+      .resultado-ancora-fat {
+        font-size: 24px;
+      }
+
+      /* Mês card */
       .mes-card {
         grid-template-columns: 1fr;
+        padding: 16px 18px;
       }
-
       .mes-num {
         display: flex;
         align-items: center;
         gap: 10px;
       }
-
-      .nums-grid {
-        grid-template-columns: 1fr;
+      .mes-num .n {
+        font-size: 24px;
       }
 
-      .y-breakdown {
-        grid-template-columns: 1fr;
+      /* Y card */
+      .y-head {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 18px;
+      }
+      .y-val {
+        text-align: left;
+        font-size: 18px;
+        white-space: normal;
+      }
+      .y-breakdown-wrap {
+        padding: 0 18px;
       }
 
+      /* Pilar link */
+      .pilar-link-wrap {
+        padding: 18px 14px;
+      }
+      .pilar-link-subtitle {
+        font-size: 13px;
+      }
+
+      /* Connector */
+      .connector-text {
+        white-space: normal;
+        text-align: center;
+        font-size: 10px;
+        max-width: 200px;
+      }
+
+      /* Botões */
+      .btn {
+        padding: 13px 18px;
+        font-size: 14px;
+      }
+      .nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .btn-secondary {
+        order: 2;
+      }
+      .btn-primary {
+        order: 1;
+      }
+
+      /* Modal */
+      .modal {
+        padding: 24px 18px;
+      }
+
+      /* Âncora */
       .ancora-frase {
         font-size: 17px;
       }
-
-      .progress-wrap {
-        padding: 14px 16px 0;
+      .resultado-ancora {
+        padding: 20px 16px;
       }
     }
 

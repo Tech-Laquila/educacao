@@ -4,13 +4,14 @@
 // Depois: Implantar → Nova implantação → Tipo: App da Web
 //   - Executar como: Eu (sua conta)
 //   - Quem tem acesso: Qualquer pessoa
-// Copie a URL gerada e cole em APPS_SCRIPT_URL no HTML.
+// Copie a URL gerada e cole como variável de ambiente APPS_SCRIPT_URL no Vercel.
 
 const SHEET_NAME = 'Leads'; // nome da aba na planilha
 
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
+    const p = e.parameter; // recebe form-urlencoded
+
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME)
                   || SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
@@ -25,19 +26,19 @@ function doPost(e) {
     }
 
     sheet.appendRow([
-      data.timestamp,
-      data.cliente,
-      data.escritorio,
-      data.whatsapp,
-      data.contratos,
-      data.faturamento,
-      data.metaContratos,
-      data.metaFaturamento,
-      data.ticketMedio,
-      data.perdaMensal,
-      data.potencial,
-      data.dores,
-      data.pilares
+      p.timestamp,
+      p.cliente,
+      p.escritorio,
+      p.whatsapp,
+      p.contratos,
+      p.faturamento,
+      p.metaContratos,
+      p.metaFaturamento,
+      p.ticketMedio,
+      p.perdaMensal,
+      p.potencial,
+      p.dores,
+      p.pilares
     ]);
 
     return ContentService
