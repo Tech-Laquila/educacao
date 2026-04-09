@@ -1255,6 +1255,12 @@
     }
 
     @media print {
+      body {
+        background: var(--bg) !important;
+        color: var(--fg) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
 
       header,
       .progress-wrap,
@@ -1272,23 +1278,26 @@
         display: block !important;
       }
 
-      body {
-        background: #fff;
-        color: #000;
-      }
-
       .mes-card,
       .contrast-card,
       .chart-wrap,
       .pilar-link-wrap,
       .y-card {
-        background: #fff !important;
-        border: 1px solid #ccc !important;
+        background: var(--card) !important;
+        border: 1px solid var(--border) !important;
         break-inside: avoid;
+        box-shadow: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .big-val, .val, .pilar-link-pilar, .resultado-ancora-contratos, .resultado-ancora-fat {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
 
       main {
-        padding: 16px;
+        padding: 0;
       }
     }
   </style>
