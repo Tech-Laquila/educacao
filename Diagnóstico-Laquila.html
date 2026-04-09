@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DIAGNÓSTICO — Laquila Educação</title>
+  <link rel="icon" type="image/jpeg" href="logo-laquila.jpeg">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
@@ -2013,7 +2014,9 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
-      }).catch(() => { }); // silencioso — não bloqueia o fluxo do usuário
+      }).then(r => r.json())
+        .then(data => console.log('Lead salvo:', data))
+        .catch(err => console.error('Erro ao salvar lead:', err));
     }
 
     document.addEventListener('DOMContentLoaded', () => {

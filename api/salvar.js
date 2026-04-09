@@ -5,27 +5,27 @@ export default async function handler(req, res) {
 
   const url = process.env.APPS_SCRIPT_URL;
   if (!url) {
-    return res.status(500).json({ error: 'URL não configurada' });
+    return res.status(500).json({ error: 'URL do Apps Script não configurada nas variáveis de ambiente' });
   }
 
   try {
-    const body = req.body;
-
-    // Envia como form-urlencoded — Apps Script recebe via e.parameter
-    const params = new URLSearchParams();
-    Object.entries(body).forEach(([k, v]) => params.append(k, v));
-
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString(),
-      redirect: 'follow',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+      redirect: 'follow', // Importante para o Google Apps Script
     });
 
-    const text = await response.text();
-    return res.status(200).send(text);
+    const result = await response.json().catch(() => null) || await response.text();
+    
+    // Repassa o status do Apps Script para facilitar debug
+    return res.status(200).json({ 
+      success: true, 
+      backend_response: result 
+    });
+    
   } catch (err) {
     console.error('[salvar] erro:', err.message);
-    return res.status(500).json({ error: 'Falha ao salvar', message: err.message });
+    return res.status(500).json({ error: 'Falha ao conectar com o Google Sheets', message: err.message });
   }
 }
