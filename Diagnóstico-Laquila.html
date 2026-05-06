@@ -4589,7 +4589,7 @@
 
       /* ── CONFIGURAÇÃO ── */
       var VIDEO_URL = '';
-      var WA_NUMBER = '<INSERIR_WHATSAPP>';
+      var WA_NUMBER = '554796444096';
 
       /* ── PROTOCOLO DINÂMICO ── */
       var proto = 10000 + (Math.floor(Date.now() / 1000) % 89999);
@@ -4606,17 +4606,7 @@
 
       function buildWALink() {
         var base = 'https://wa.me/' + WA_NUMBER + '?text=';
-        try {
-          var nome = getParam('nome') || localStorage.getItem('lq_nome') || (DIAG && DIAG.nome) || '';
-          var escritorio = getParam('area') || localStorage.getItem('lq_escritorio') || (DIAG && DIAG.escritorio) || '';
-          if (nome) {
-            var msg = 'Acabei de enviar meu diagnóstico. Sou ' + nome
-              + (escritorio ? ', do ' + escritorio : '')
-              + '. Quero antecipar minha análise estratégica.';
-            return base + encodeURIComponent(msg);
-          }
-        } catch (e) { }
-        return base + encodeURIComponent('Acabei de concluir o diagnóstico Laquila e quero antecipar minha análise estratégica.');
+        return base + encodeURIComponent('Olá, fiz o Diagnóstico e gostaria de falar com um especialista!');
       }
 
       var waLink = buildWALink();
