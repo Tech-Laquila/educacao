@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -7,6 +7,24 @@
   <title>DIAGNÓSTICO — Laquila Educação</title>
   <link rel="icon" type="image/jpeg" href="logo-laquila.jpeg">
   <link rel="apple-touch-icon" href="logo-laquila.jpeg">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1246267002971555');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1246267002971555&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -4003,15 +4021,6 @@
                 </svg>
                 Falar com o time e antecipar minha análise
               </a>
-              <button class="btn-neutral" data-a="slide-up" style="--anim-delay:460ms" onclick="window.print()">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                  aria-hidden="true">
-                  <polyline points="6 9 6 2 18 2 18 9" />
-                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                  <rect x="6" y="14" width="12" height="8" />
-                </svg>
-                Salvar
-              </button>
             </div>
             <p class="microcopy" data-a="slide-up" style="justify-content:center;margin-top:16px;--anim-delay:520ms">
               Resposta mais rápida e direcionamento prático
@@ -4058,6 +4067,42 @@
   </div>
 
   <script>
+    /* ── META TRACKING HELPERS ── */
+    var META_PIXEL_ID = '1246267002971555';
+
+    function _fbGetCookie(name) {
+      var m = document.cookie.match(new RegExp('(?:^| )' + name + '=([^;]+)'));
+      return m ? decodeURIComponent(m[1]) : '';
+    }
+    function _fbGetFbclid() {
+      try { return new URLSearchParams(window.location.search).get('fbclid') || sessionStorage.getItem('lq_fbclid') || ''; } catch(e) { return ''; }
+    }
+    function _fbGetFbp() { return _fbGetCookie('_fbp'); }
+    function _fbGetFbc() {
+      var c = _fbGetCookie('_fbc');
+      if (c) return c;
+      var fbclid = _fbGetFbclid();
+      return fbclid ? 'fb.1.' + Math.floor(Date.now() / 1000) + '.' + fbclid : '';
+    }
+    async function _sha256(str) {
+      try {
+        var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str.toLowerCase().trim()));
+        return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+      } catch(e) { return ''; }
+    }
+    function firePixel(event, params, opts) {
+      if (window.fbq) fbq('track', event, params || {}, opts || {});
+    }
+
+    // Persiste fbclid no sessionStorage ao chegar da campanha
+    (function() {
+      try {
+        var fbclid = new URLSearchParams(window.location.search).get('fbclid');
+        if (fbclid) sessionStorage.setItem('lq_fbclid', fbclid);
+      } catch(e) {}
+    })();
+    /* ── FIM META TRACKING HELPERS ── */
+
     const DORES = {
       metricas: { pilares: [4], nome: 'Pilar 4 — Métricas Comerciais', frag: 'você gasta em marketing sem saber o retorno', short: 'marketing sem métrica', resultado: 'CAC, ROI e conversão mapeados — você sabe exatamente o que cada real gasto está gerando' },
       processos: { pilares: [5], nome: 'Pilar 5 — Procedimentos Internos', frag: 'cada funcionário faz do seu jeito e leva tudo quando sai', short: 'processos soltos', resultado: 'SOPs e checklists implantados — zero retrabalho, zero dependência de pessoa' },
@@ -4139,7 +4184,10 @@
         }
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (n === 4) initScreen4();
+      if (n === 4) {
+        initScreen4();
+        firePixel('CompleteRegistration', { content_name: 'Obrigado — Laquila Full 360' });
+      }
     }
     function goTo2() {
       if (!document.getElementById('nome').value.trim()) { alert('Informe o nome do cliente.'); return; }
@@ -4204,6 +4252,14 @@
       computeDiagnostico(); renderDiagnostico(); saveToBackend();
       closeWhatsModal(); goTo(3);
       setTimeout(() => drawContrastChart(), 300);
+      // Pixel: Lead
+      _sha256('+55' + raw).then(function(ph) {
+        firePixel('Lead', { content_name: 'Diagnóstico Laquila', currency: 'BRL' }, {
+          eventID: 'lead_' + Date.now(),
+          extern_id: raw,
+          ph: ph
+        });
+      });
     }
 
     // CÁLCULO
@@ -4492,7 +4548,12 @@
         perdaMensal: DIAG.P,
         potencial: DIAG.Z,
         dores: DIAG.doresMarcadas.map(d => DORES[d].short).join(', '),
-        pilares: DIAG.pilaresAtivados.map(p => PILARES[p].nome).join(', ')
+        pilares: DIAG.pilaresAtivados.map(p => PILARES[p].nome).join(', '),
+        fbclid: _fbGetFbclid(),
+        fbp: _fbGetFbp(),
+        fbc: _fbGetFbc(),
+        userAgent: navigator.userAgent,
+        sourceUrl: window.location.href
       };
       fetch('/api/salvar', {
         method: 'POST',
@@ -4516,6 +4577,13 @@
     function initScreen4() {
       if (screen4Initialized) return;
       screen4Initialized = true;
+
+      // Pixel: Contact em todos os botões WhatsApp da screen 4
+      document.querySelectorAll('#screen4 .js-wa, #screen4 .btn-wa').forEach(function(el) {
+        el.addEventListener('click', function() {
+          firePixel('Contact', { content_name: 'WhatsApp CTA — Screen 4' });
+        });
+      });
 
       'use strict';
 
