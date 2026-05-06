@@ -3177,8 +3177,8 @@
       </div>
 
       <div class="nav" style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="goTo(4)">Finalizar e falar com a Laquila →</button>
-        <button class="btn btn-secondary" onclick="goTo(2)">← Voltar</button>
+        <button class="btn btn-primary" onclick="goTo(4)">Fale com um de nossos especialistas →</button>
+        <button class="btn btn-secondary" onclick="window.print()">🖨️ Salvar diagnóstico</button>
       </div>
       <div class="footer-logo">
         <img src="logo-laquila.jpeg" alt="Laquila Educação">
@@ -3431,7 +3431,7 @@
     </section>
 
     <!-- CTA ENTRE CASES E FAQ -->
-    <div class="cta-block dark" data-section>
+    <div class="cta-block dark" data-section style="display:flex;justify-content:center;">
       <a class="btn-wa js-wa" href="#" target="_blank" rel="noopener" data-track="cases" data-a="slide-up"
         style="--anim-delay:0ms">
         <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -3471,12 +3471,6 @@
               <div class="faq-answer">Sim. Boa parte dos escritórios que entram na metodologia começa com 1 a 3 advogados. <strong>O critério não é o tamanho atual — é a intenção de construir algo previsível e escalável.</strong> Escritórios menores costumam ver resultado mais rápido por terem menos camadas de processo para reorganizar.</div>
             </details>
           </div>
-          <div class="faq-item">
-            <details>
-              <summary>Quanto custa a Estruturação Full 360?</summary>
-              <div class="faq-answer">O investimento varia conforme o estágio e o cenário do escritório. Na call, o especialista apresenta as opções adequadas para o seu momento. <strong>Não existe tabela fixa — o plano é dimensionado para o resultado que você quer atingir, não para um pacote padrão.</strong></div>
-            </details>
-          </div>
         </div>
       </div>
     </section>
@@ -3496,16 +3490,14 @@
             </svg>
             Falar com o time e antecipar minha análise
           </a>
-          <button id="js-share" class="btn-neutral" data-a="slide-up" style="--anim-delay:460ms">
+          <button class="btn-neutral" data-a="slide-up" style="--anim-delay:460ms" onclick="window.print()">
             <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
               aria-hidden="true">
-              <circle cx="18" cy="5" r="3" />
-              <circle cx="6" cy="12" r="3" />
-              <circle cx="18" cy="19" r="3" />
-              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              <polyline points="6 9 6 2 18 2 18 9" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" />
             </svg>
-            Compartilhar diagnóstico com sócio
+            Salvar
           </button>
         </div>
         <p class="microcopy" data-a="slide-up" style="justify-content:center;margin-top:16px;--anim-delay:520ms">
@@ -3526,7 +3518,6 @@
     <!-- SPA NAV — volta ao resultado ou reinicia -->
     <div style="text-align:center;padding:20px 0 40px;border-top:1px solid rgba(245,242,234,.14)">
       <button onclick="goTo(3)" style="background:transparent;border:1px solid rgba(245,242,234,.14);color:#a39f94;border-radius:8px;padding:8px 18px;font-size:12px;font-family:Inter,sans-serif;cursor:pointer;margin:0 6px;letter-spacing:.08em">← Voltar ao resultado</button>
-      <button onclick="restart()" style="background:transparent;border:1px solid rgba(245,242,234,.14);color:#a39f94;border-radius:8px;padding:8px 18px;font-size:12px;font-family:Inter,sans-serif;cursor:pointer;margin:0 6px;letter-spacing:.08em">↺ Novo diagnóstico</button>
     </div>
     </div>
 
